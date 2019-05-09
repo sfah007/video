@@ -17,10 +17,10 @@ $site_description = 'Watch ad-free YouTube videos, even if it is blocked at your
 $site_image = 'https://lh3.googleusercontent.com/gtxYXbakPzEBM8_T3iWrD1THk775MyvIPjyiIQQh-VXCPt-ZWtN2HI3ztfOO9-9cWjjRNEKNEiN6fUKvFw';
 
 // Results Per Page
-$perpage = 48;
+$perpage = 24;
 
 // Current URL
-$url = isset($_SERVER['HTTPS']) ? 'https' : 'http'.'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$url = (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
 // Active Menu Item
 $active = 'class="active" ';
@@ -29,13 +29,12 @@ $active = 'class="active" ';
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $random = isset($_GET['random']) ? true : '';
 $page = isset($_GET['page']) ? $_GET['page'] : '';
-$related = isset($_GET['related']) ? $_GET['related'] : '';
 $channel = isset($_GET['channel']) ? $_GET['channel'] : '';
 $category = isset($_GET['category']) ? $_GET['category'] : '';
 
 // Search Variables
 $term = isset($_GET['term']) ? $_GET['term'] : '';
-$order = isset($_GET['order']) ? $_GET['order'] '';
+$order = isset($_GET['order']) ? $_GET['order'] : '';
 $duration = isset($_GET['duration']) ? $_GET['duration'] : '';
 $hd = isset($_GET['hd']) ? true : '';
 $d3 = isset($_GET['3d']) ? true : '';
@@ -51,18 +50,19 @@ $opts = array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false
 
 // Video Page
 if ($id) {
-	$query = "https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=$id&key=$key&prettyPrint=false&fields=items(snippet(publishedAt,channelId,title,description,thumbnails/medium,channelTitle,tags),contentDetails/duration,statistics(viewCount,likeCount,dislikeCount))";
+	$query = "https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=$id&key=$key&prettyPrint=false&fields=items(snippet(publishedAt,channelId,title,description,thumbnails(medium),channelTitle,tags),contentDetails(duration),statistics(viewCount,likeCount,dislikeCount))";
 	$response = json_decode(@file_get_contents($query, false, stream_context_create($opts)), true);
 	$video = $response['items'][0];
 	$video_image = $video['snippet']['thumbnails']['medium']['url'];
-	$video_title = htmlspecialchars($video['snippet']['title'], ENT_QUOTES);
-	$video_description = strlen(str_replace('\n', '', $video['snippet']['description'])) > 3 ? htmlspecialchars($video['snippet']['description'], ENT_QUOTES) : '';
-	$arr = explode('T', $video['snippet']['publishedAt']);
+	$video_title = $video['snippet']['title'];
+	$video_description = strlen(str_replace('\n', '', $video['snippet']['description'])) > 3 ? $video['snippet']['description'] : '';
+	$video_datetime = $video['snippet']['publishedAt'];
+	$arr = explode('T', $video_datetime);
 	$video_date = $arr[0];
 	$video_tags = isset($video['snippet']['tags']) ? $video['snippet']['tags'] : '';
 	$video_views = $video['statistics']['viewCount'];
-	$video_likes = 0; if (isset($video['statistics']['likeCount'])) $video_likes = $video['statistics']['likeCount'];
-	$video_dislikes = 0; if (isset($video['statistics']['dislikeCount'])) $video_dislikes = $video['statistics']['dislikeCount'];
+	$video_likes = isset($video['statistics']['likeCount']) ? $video['statistics']['likeCount'] : 0;
+	$video_dislikes = isset($video['statistics']['dislikeCount']) ? $video['statistics']['dislikeCount'] : 0;
 	$video_channel = $video['snippet']['channelTitle'];
 	$video_channel_id = $video['snippet']['channelId'];
 	$rpc = str_replace(array('PT', 'H', 'M', 'S'), array('', ':', ':', ''), $video['contentDetails']['duration']);
@@ -74,11 +74,9 @@ if ($id) {
 
 // Query Pages
 else {
-	$query = "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&key=$key&prettyPrint=false&fields=nextPageToken,prevPageToken,items(id/videoId,snippet(title,thumbnails/medium";
-	if ($channel) $query .= ",channelTitle))&channelId=$channel&videoEmbeddable=true";
-	else $query .= "))&videoSyndicated=true";
+	$query = "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoEmbeddable=true&videoSyndicated=true&prettyPrint=false&key=$key";
+	if ($channel) $query .= "&channelId=$channel";
 	if ($category) $query .= "&videoCategoryId=$category";
-	if ($related) $query .= "&relatedToVideoId=$related";
 	if ($order) $query .= "&order=$order";
 	if ($duration) $query .= "&videoDuration=$duration";
 	if ($hd) $query .= "&videoDefinition=high";
@@ -88,17 +86,17 @@ else {
 	if ($term) $query .= "&q=".urlencode($term);
 	if ($random) {
 		$tokens = array('CAEQAA', 'CAIQAA', 'CAMQAA', 'CAQQAA', 'CAUQAA', 'CAYQAA', 'CAcQAA', 'CAgQAA', 'CAkQAA', 'CAoQAA', 'CAsQAA', 'CAwQAA', 'CA0QAA', 'CA4QAA', 'CA8QAA', 'CBAQAA', 'CBEQAA', 'CBIQAA', 'CBMQAA', 'CBQQAA', 'CBUQAA', 'CBYQAA', 'CBcQAA', 'CBgQAA', 'CBkQAA', 'CBoQAA', 'CBsQAA', 'CBwQAA', 'CB0QAA', 'CB4QAA', 'CB8QAA', 'CCAQAA', 'CCEQAA', 'CCIQAA', 'CCMQAA', 'CCQQAA', 'CCUQAA', 'CCYQAA', 'CCcQAA', 'CCgQAA', 'CCkQAA', 'CCoQAA', 'CCsQAA', 'CCwQAA', 'CC0QAA', 'CC4QAA', 'CC8QAA', 'CDAQAA', 'CDEQAA', 'CDIQAA', 'CDMQAA', 'CDQQAA', 'CDUQAA', 'CDYQAA', 'CDcQAA');
-		$query .= '&fields(id(videoId))=&maxResults=1&pageToken='.$tokens[array_rand($tokens)];
+		$query .= '&maxResults=1&fields=items(id(videoId))&pageToken='.$tokens[array_rand($tokens)];
+		if (isset($_GET['related'])) $query .= '&relatedToVideoId='.$_GET['related'];
 		$response = json_decode(@file_get_contents($query, false, stream_context_create($opts)), true);
 		if (isset($response['items'][0])) header('Location: ?id='.$response['items'][0]['id']['videoId']);
 		else header('Location: ?random');
 		exit;
 	}
 	if ($page) $query .= "&pageToken=$page";
-	$query .= "&maxResults=$perpage";
+	$query .= "&maxResults=$perpage&fields=nextPageToken,prevPageToken,items(id(videoId),snippet(title,thumbnails(medium)".($channel ? ',channelTitle))' : '))');
 	$response = json_decode(@file_get_contents($query, false, stream_context_create($opts)), true);
-	$i = 0;
-	if ($channel and isset($response['items'][0])) $channel_title = $response['items'][0]['snippet']['channelTitle'];
+	$channel_title = ($channel and isset($response['items'][0])) ? $response['items'][0]['snippet']['channelTitle'] : '';
 	$nextpage = isset($response['nextPageToken']) ? $response['nextPageToken'] : '';
 	$prevpage = isset($response['prevPageToken']) ? $response['prevPageToken'] : '';
 }
@@ -108,7 +106,7 @@ function autolink($text) {
 	$text = ' ' . $text;
 	$text = preg_replace('`([^"=\'>])((http|https|ftp)://[^\s<]+[^\s<\.)])`i', '$1<a href="$2" rel="nofollow" target="_blank">$2</a>', $text);
 	$text = substr($text, 1);
-	echo nl2br($text);
+	return nl2br($text);
 }
 
 ?>
