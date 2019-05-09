@@ -321,7 +321,7 @@
 		<script src="https://www.youtube.com/iframe_api" async></script>
 		<script src="https://cdn.jsdelivr.net/gh/memres/video/video.min.js"></script>
 <?php } ?>
-		<script src="https://cdn.jsdelivr.net/gh/memres/video/main.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/memres/video/main.js"></script>
 		<script>var sc_invisible = 1, sc_project = 5408945, sc_security = 'f75ba4c3';window.ga = window.ga || function(){(ga.q = ga.q || []).push(arguments)};ga.l = +new Date;ga('create', 'UA-28085788-1', 'auto');ga('send', 'pageview');</script>
 		<script src="https://statcounter.com/counter/counter.js"></script>
 		<script src="https://www.google-analytics.com/analytics.js" async></script>
