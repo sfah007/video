@@ -34,6 +34,6 @@
 					$('html, body').animate({ scrollTop: 0 }, 400);
 				});
 				if (/Mobi|Android/i.test(navigator.userAgent)) {
-					$('.omega label').text('CC');
+					$('.cc').text('CC');
 				}
 			});
