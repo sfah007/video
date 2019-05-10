@@ -80,28 +80,6 @@
 						$(this).html(expand);
 					}
 				});
-				function elementScrolled(elem) {
-					var docViewTop = $(window).scrollTop(),
-					docViewBottom = docViewTop + $(window).height(),
-					elemTop = $(elem).offset().top;
-					return ((elemTop <= docViewBottom) && (elemTop >= docViewTop));
-				}
-				$(window).on('scroll', function() {
-					if (elementScrolled('.scrolload')) {
-						$(window).off('scroll');
-						$.ajax({
-							url: 'related.php',
-							data: 'v=' + id,
-							beforeSend: function() {
-								$('.fa-puzzle-piece').addClass('fa-spin');
-							},
-							success: function(response) {
-								$('.fa-puzzle-piece').removeClass('fa-spin');
-								$('.related-videos').html(response);
-							}
-						})
-					}
-				});
 				$(document).on('click', '.more-videos', function() {
 					var diz = $(this), more = $(this).attr('value');
 					$.ajax({
@@ -115,5 +93,21 @@
 							$('.related-videos').append(response);
 						}
 					});
+				});
+				$(window).on('scroll', function() {
+					if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 78) {
+						$(window).off('scroll');
+						$.ajax({
+							url: 'related.php',
+							data: 'v=' + id,
+							beforeSend: function() {
+								$('.fa-puzzle-piece').addClass('fa-spin');
+							},
+							success: function(response) {
+								$('.fa-puzzle-piece').removeClass('fa-spin');
+								$('.related-videos').html(response);
+							}
+						})
+					}
 				});
 			});
