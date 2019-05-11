@@ -18,6 +18,11 @@
 						},
 						events: {
 							'onReady': function () {
+								var duration = player.getDuration(),
+								hour = parseInt(duration / 3600),
+								min = parseInt((duration / 60) % 60),
+								sec = parseInt(duration - ((hour * 3600) + (min * 60)));
+								$('.duration').text((hour ? hour + ':' : '') + (hour && min < 10 ? '0' + min : min) + ':' + (sec < 10 ? '0' + sec : sec));
 								if (!Cookies.get('autoplay')) player.playVideo();
 							},
 							'onStateChange': function (event) {
