@@ -1,24 +1,9 @@
-var player;
-function onYouTubeIframeAPIReady() {
-	player = new YT.Player('player', {
-		host: 'https://www.youtube-nocookie.com',
-		videoId: document.querySelector('.video').getAttribute('id'),
-		playerVars: {
-			'hl': 'en',
-			'iv_load_policy': 3,
-			'modestbranding': 1,
-			'rel': 0
-		},
-		events: {
-			'onReady': onPlayerReady,
-			'onStateChange': onPlayerStateChange
-		}
-	});
-}
+var id, player;
 $(function(){
 	if (Cookies.get('autoplay')) $('.autoplay i').attr('class', 'fa fa-toggle-off');
 	if (Cookies.get('continuous')) $('.continuous i').attr('class', 'fa fa-toggle-off');
-	var id = $('.video').attr('id');
+	$.getScript('https://www.youtube.com/iframe_api');
+	id = $('.video').attr('id');
 	function onPlayerReady() {
 		var duration = player.getDuration(),
 		hour = parseInt(duration / 3600),
@@ -115,3 +100,19 @@ $(function(){
 		}
 	});
 });
+function onYouTubeIframeAPIReady() {
+	player = new YT.Player('player', {
+		host: 'https://www.youtube-nocookie.com',
+		videoId: id,
+		playerVars: {
+			'hl': 'en',
+			'iv_load_policy': 3,
+			'modestbranding': 1,
+			'rel': 0
+		},
+		events: {
+			'onReady': onPlayerReady,
+			'onStateChange': onPlayerStateChange
+		}
+	});
+}
