@@ -1,12 +1,8 @@
-			var player, YTdeferred = $.Deferred();
-			window.onYouTubeIframeAPIReady = function() {
-				YTdeferred.resolve(window.YT);
-			};
 			$(function(){
-				if (Cookies.get('autoplay')) $('.autoplay').find('i').attr('class', 'fa fa-toggle-off');
-				if (Cookies.get('continuous')) $('.continuous').find('i').attr('class', 'fa fa-toggle-off');
-				var id = $('.video').attr('id');
-				YTdeferred.done(function(YT) {
+				if (Cookies.get('autoplay')) $('.autoplay i').attr('class', 'fa fa-toggle-off');
+				if (Cookies.get('continuous')) $('.continuous i').attr('class', 'fa fa-toggle-off');
+				var player, id = $('.video').attr('id');
+				function onYouTubeIframeAPIReady() {
 					player = new YT.Player('player', {
 						host: 'https://www.youtube-nocookie.com',
 						videoId: id,
