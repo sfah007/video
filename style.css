@@ -221,7 +221,7 @@
 	.sixteen.columns.categories, .sixteen.columns.search, .about { display: none; }
 	.center, .info, .top  { text-align: center; }
 	.logo a { font: 28px/28px 'Cinzel', serif; }
-	.logo, .menu, .search label, .expand { text-transform: uppercase; }
+	.logo, .menu, .search label, .duration, .expand, .prevnext, .footer { text-transform: uppercase; }
 	.expand { font-weight: bold; }
 	.top a { font-size: 20px; }
 		
@@ -268,7 +268,7 @@
 		margin-left: 20px;
 		font: 17px/28px 'Cinzel', serif;
 	}
-	.menu a, button, .expand, .toggle-about {
+	.logo, .menu, .categories, .search, button, .tags, .expand, .prevnext, .footer {
 		user-select: none;
 	}
 	
@@ -302,15 +302,16 @@
 	.tags li:last-child {
 		margin-right: 0;
 	}
-	.tags li a {
-		display: block;
+	.tags li a, .tags li.expand {
+		display: inline-block;
 		background: #333;
 		color: #f0f0f0;
 		padding: 4px 8px;
 		border: 2px solid #333;
 		border-radius: 5px;
+		cursor: pointer;
 	}
-	.tags li a:hover {
+	.tags li a:hover, .tags li.expand:hover {
 		background: #555;
 	}
 	
@@ -567,7 +568,7 @@
 		.scale { width: 310px; height: 174px; }
 		.tags { font-size: 12px; }
 		.tags li { margin: 0 2px 4px 0; }
-		.tags li a { padding: 2px 4px; }
+		.tags li a, .tags li.expand { padding: 2px 4px; }
 		.publisher p.collapse, .comment p.collapse { -webkit-line-clamp: 2; }
 		button.autoplay, button.continuous { width: 100%; }
 		button.autoplay { margin-bottom: 10px; }
