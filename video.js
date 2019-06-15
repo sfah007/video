@@ -18,11 +18,11 @@ $(function() {
 			},
 			events: {
 				'onReady': function () {
-					var duration = player.getDuration(),
-					hour = parseInt(duration / 3600),
-					min = parseInt((duration / 60) % 60),
-					sec = parseInt(duration - ((hour * 3600) + (min * 60)));
-					$('.duration').text((hour ? hour + ':' : '') + (hour && min < 10 ? '0' + min : min) + ':' + (sec < 10 ? '0' + sec : sec));
+					var hour = parseInt(player.getDuration() / 3600),
+					min = parseInt((player.getDuration() / 60) % 60),
+					sec = parseInt(player.getDuration() - ((hour * 3600) + (min * 60))),
+					duration = (hour ? hour + ':' : '') + (hour && min < 10 ? '0' + min : min) + ':' + (sec < 10 ? '0' + sec : sec);
+					$('.duration').text(duration == '0:00' ? 'live' : duration);
 					if (!Cookies.get('autoplay')) player.playVideo();
 				},
 				'onStateChange': function (event) {
@@ -59,31 +59,18 @@ $(function() {
 		popup = window.open (url, '_blank', 'width=' + popwidth + ', height=' + popheight);
 		popup.moveTo((screen.width / 2) - (popwidth / 2), (screen.height / 2) - (popheight / 2)).focus();
 	});
-	var clamp = 74;
-	if ($(window).width() > 767) clamp = 92;
-	if ($('.tags').height() > clamp) {
-		$('.tags').addClass('collapse').prepend('<li class="tag"><a class="expand"><i class="fa fa-chevron-down"></i> More Tags</a></li>');
+	if ($('.tags').height() > ($(window).width() > 767 ? 92 : 74)) {
+		$('.tags').addClass('collapse').prepend('<li class="expand"><i class="fa fa-chevron-down"></i> More Tags</li>');
 	}
-	var link = '<a class="expand"><i class="fa fa-chevron-down"></i> Read More</a>';
 	if ($('.description p').height() > 130) {
-		$('.description p').addClass('collapse').after(link);
+		$('.description p').addClass('collapse').after('<a class="expand"><i class="fa fa-chevron-down"></i> Read More</a> ');
 	}
 	$(document).on('click', '.expand', function() {
-		var text = $(this).parent().find('p');
-		if ($(this).parent().parent().hasClass('tags')) text = $(this).parent().parent();
-		var collapse = '<i class="fa fa-chevron-up"></i> ';
-		if ($(this).parent().parent().hasClass('tags')) collapse += 'Less Tags';
-		else collapse += 'Read Less';
-		var expand = '<i class="fa fa-chevron-down"></i> ';
-		if ($(this).parent().parent().hasClass('tags')) expand += 'More Tags';
-		else expand += 'Read More';
-		if (text.hasClass('collapse')) {
-			text.removeClass('collapse');
-			$(this).html(collapse);
-		} else {
-			text.addClass('collapse');
-			$(this).html(expand);
-		}
+		var text = $(this).html(),
+		collapse = '<i class="fa fa-chevron-up"></i> ' + ($(this).parent().hasClass('tags') ? 'Less Tags' : 'Read Less'),
+		expand = '<i class="fa fa-chevron-down"></i> ' + ($(this).parent().hasClass('tags') ? 'More Tags' : 'Read More');
+		$(this).html(text == expand ? collapse : expand);
+		($(this).parent().hasClass('tags') ? $('.tags') : $('.description p')).toggleClass('collapse');
 	});
 	$(document).on('click', '.more-videos', function() {
 		var diz = $(this), more = $(this).attr('value');
