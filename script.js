@@ -96,8 +96,15 @@ $(function() {
 				},
 				'onReady': function() {
 					if ($('.playlist').length) listize();
-					player.cueVideoById($('h4').length ? $('h4').attr('id') : $('ins:eq(0)').attr('id'));
-					if (Cookies.get('auto_start')) player.playVideo();
+					var first = $('h4').length ? $('h4').attr('id') : $('ins:eq(0)').attr('id');
+					if (Cookies.get('save_history')) {
+						player.loadVideoById(first);
+						if (!Cookies.get('auto_start')) player.pauseVideo();
+					}
+					else {
+						player.cueVideoById(first);
+						if (Cookies.get('auto_start')) player.playVideo();
+					}
 				},
 				'onStateChange': function(event) {
 					if ($('.playlist').length) {
