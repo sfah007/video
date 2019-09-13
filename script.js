@@ -76,7 +76,7 @@ $(function() {
 		update: function() {
 			var list = '';
 			$('article').each(function(i, e) {
-				list += $('ins', e).attr('id') + '፧ჲ፨ဇ፡' + $('span', e).text() + '፡ဇ፨ჲ፧';
+				list += $('ins', e).attr('id') + 'ჲ፨ဇ' + $('span', e).text() + 'ဇ፨ჲ';
 			});
 			Cookies.set('playlist', list, {expires: 365, path: folder});
 		}
@@ -142,10 +142,10 @@ $(function() {
 	});
 	$(document).on('click', 'h4, ins', function(event) {
 		event.preventDefault();
-		var id = $(this).attr('id'), title = $(this).parent('.info').length ? $(this).text() : $(this).prev().text();
-		if ($('i', this).hasClass('fa-plus-circle')) Cookies.set('playlist', Cookies.get('playlist') + id + '፧ჲ፨ဇ፡' + title + '፡ဇ፨ჲ፧', {expires: 365, path: folder});
+		var id = $(this).attr('id'), title = $(this).parent('.info').length ? $(this).text() : $(this).prev().text(), li = id + 'ჲ፨ဇ' + title + 'ဇ፨ჲ';
+		if ($('i', this).hasClass('fa-plus-circle')) Cookies.set('playlist', Cookies.get('playlist') + li, {expires: 365, path: folder});
 		else {
-			Cookies.set('playlist', Cookies.get('playlist').replace(id + '፧ჲ፨ဇ፡' + title + '፡ဇ፨ჲ፧', ''), {expires: 365, path: folder});
+			Cookies.set('playlist', Cookies.get('playlist').replace(li, ''), {expires: 365, path: folder});
 			if ($('.playlist').length) {
 				var item = $(this).parent().parent();
 				item.fadeOut();
@@ -156,7 +156,7 @@ $(function() {
 		$('i', this).toggleClass('fa-plus-circle fa-check-circle');
 	});
 	function listize() {
-		var arr = Cookies.get('playlist').replace(/፡ဇ፨ჲ፧$/, '').split('፡ဇ፨ჲ፧');
+		var arr = Cookies.get('playlist').replace(/ဇ፨ჲ$/, '').split('ဇ፨ჲ');
 		if ($('.shuffle').hasClass('on')) {
 			for (let i = arr.length - 1; i > 0; i--) {
 				let j = Math.floor(Math.random() * (i + 1));
@@ -165,7 +165,7 @@ $(function() {
 		}
 		$('article').remove();
 		$.each(arr.reverse(), function(i, val) {
-			var str = val.split('፧ჲ፨ဇ፡');
+			var str = val.split('ჲ፨ဇ');
 			$('.playlist').prepend('<article id="' + val + '"><b><small><i class="fas fa-arrows-alt fa-2x"></i></small><span>' + str[1] + '</span><ins id="' + str[0] + '"><i class="fas fa-check-circle fa-2x"></i></ins><img src="https://i.ytimg.com/vi/' + str[0] + '/mqdefault.jpg"/></b></article>');
 		});
 		$('#' + player.getVideoData()['video_id']).parent().find('.fa-arrows-alt').addClass('fa-' + (player.getPlayerState() != 1 ? 'play' : 'pause') + '-circle');
