@@ -5,7 +5,7 @@ window.onYouTubeIframeAPIReady = function() {
 $(function() {
 	var folder = window.location.pathname.split('/').slice(0, -1).join('/');
 	Cookies.set('related', $('main').attr('data-id'), {expires: 365, path: folder});
-	if (!Cookies.get('playlist')) Cookies.set('playlist', '', {expires: 365, path: folder});
+	if (!localStorage.getItem('playlist')) localStorage.setItem('playlist', '');
 	if ($('h4').length) $('h4').each(checkplus);
 	if ($('.info p').length) $('.info p').each(clamp);
 	if ($('article').length) $('ins').each(checkplus);
@@ -78,7 +78,7 @@ $(function() {
 			$('article').each(function(i, e) {
 				list += $('ins', e).attr('id') + 'ჲ፨ဇ' + $('span', e).text() + 'ဇ፨ჲ';
 			});
-			Cookies.set('playlist', list, {expires: 365, path: folder});
+			localStorage.setItem('playlist', list);
 		}
 	});
 	$('.playlist').disableSelection();
@@ -131,7 +131,8 @@ $(function() {
 	$('.playlist aside a').on('click', function() {
 		$('figure, ol, section').fadeOut();
 		setTimeout(function() {$('main').empty()}, 600);
-		Cookies.set('playlist', '', {expires: 365, path: folder});
+		Cookies.remove('playlist', {path: folder});
+		localStorage.setItem('playlist', '');
 	});
 	$(document).on('click', '.playlist img', function() {
 		if ($(this).prev().attr('id') == player.getVideoData()['video_id']) playpause();
@@ -143,9 +144,12 @@ $(function() {
 	$(document).on('click', 'h4, ins', function(event) {
 		event.preventDefault();
 		var id = $(this).attr('id'), title = $(this).parent('.info').length ? $(this).text() : $(this).prev().text(), li = id + 'ჲ፨ဇ' + title + 'ဇ፨ჲ';
-		if ($('i', this).hasClass('fa-plus-circle')) Cookies.set('playlist', Cookies.get('playlist') + li, {expires: 365, path: folder});
+		if ($('i', this).hasClass('fa-plus-circle')) {
+			Cookies.set('playlist', id, {expires: 365, path: folder});
+			localStorage.setItem('playlist', localStorage.getItem('playlist') + li);
+		}
 		else {
-			Cookies.set('playlist', Cookies.get('playlist').replace(li, ''), {expires: 365, path: folder});
+			localStorage.setItem('playlist', localStorage.getItem('playlist').replace(li, ''));
 			if ($('.playlist').length) {
 				var item = $(this).parent().parent();
 				item.fadeOut();
@@ -156,7 +160,7 @@ $(function() {
 		$('i', this).toggleClass('fa-plus-circle fa-check-circle');
 	});
 	function listize() {
-		var arr = Cookies.get('playlist').replace(/ဇ፨ჲ$/, '').split('ဇ፨ჲ');
+		var arr = localStorage.getItem('playlist').replace(/ဇ፨ჲ$/, '').split('ဇ፨ჲ');
 		if ($('.shuffle').hasClass('on')) {
 			for (let i = arr.length - 1; i > 0; i--) {
 				let j = Math.floor(Math.random() * (i + 1));
@@ -351,7 +355,7 @@ $(function() {
 		});
 	});
 	function checkplus() {
-		if (Cookies.get('playlist').includes($(this).attr('id'))) $('i', this).removeClass('fa-plus-circle').addClass('fa-check-circle');
+		if (localStorage.getItem('playlist').includes($(this).attr('id'))) $('i', this).removeClass('fa-plus-circle').addClass('fa-check-circle');
 	}
 	function clamp() {
 		if ($(this).height() > 100) $(this).addClass('clamp').after('<legend><span><i class="fas fa-chevron-circle-down"></i></span></legend>');
