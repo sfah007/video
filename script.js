@@ -7,12 +7,9 @@ $(function() {
 	Cookies.set('related', $('main').attr('data-id'), {expires: 365, path: folder});
 	if (!Cookies.get('playlist')) Cookies.set('playlist', '', {expires: 365, path: folder});
 	if ($('h4').length) $('h4').each(checkplus);
-	if ($('article').length) $('ins').each(checkplus);
 	if ($('.info p').length) $('.info p').each(clamp);
-	if ($('.playlist').length) {
-		if (Cookies.get('loop')) $('.loop').addClass('on');
-		if (Cookies.get('shuffle')) $('.shuffle').addClass('on');
-	}
+	if ($('article').length) $('ins').each(checkplus);
+	if ($('.shuffle').length && Cookies.get('shuffle')) $('.shuffle').addClass('on');
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 		mobile = true;
 		var script = document.createElement('script');
@@ -75,7 +72,14 @@ $(function() {
 	});
 	$('.playlist').sortable({
 		handle: 'small',
-		items: 'article'
+		items: 'article',
+		update: function() {
+			var list = '';
+			$('article').each(function(i, e) {
+				list += $('ins', e).attr('id') + '፧ჲ፨ဇ፡' + $('span', e).text() + '፡ဇ፨ჲ፧';
+			});
+			Cookies.set('playlist', list, {expires: 365, path: folder});
+		}
 	});
 	$('.playlist').disableSelection();
 	YTdeferred.done(function(YT) {
@@ -138,7 +142,7 @@ $(function() {
 	});
 	$(document).on('click', 'h4, ins', function(event) {
 		event.preventDefault();
-		var id = $(this).attr('id'), title = $('h4').length ? $(this).text() : $(this).prev().text();
+		var id = $(this).attr('id'), title = $(this).parent('.info').length ? $(this).text() : $(this).prev().text();
 		if ($('i', this).hasClass('fa-plus-circle')) Cookies.set('playlist', Cookies.get('playlist') + id + '፧ჲ፨ဇ፡' + title + '፡ဇ፨ჲ፧', {expires: 365, path: folder});
 		else {
 			Cookies.set('playlist', Cookies.get('playlist').replace(id + '፧ჲ፨ဇ፡' + title + '፡ဇ፨ჲ፧', ''), {expires: 365, path: folder});
@@ -162,7 +166,7 @@ $(function() {
 		$('article').remove();
 		$.each(arr.reverse(), function(i, val) {
 			var str = val.split('፧ჲ፨ဇ፡');
-			$('.playlist').prepend('<article><b><small><i class="fas fa-arrows-alt fa-2x"></i></small><span>' + str[1] + '</span><ins id="' + str[0] + '"><i class="fas fa-check-circle fa-2x"></i></ins><img src="https://i.ytimg.com/vi/' + str[0] + '/mqdefault.jpg"/></b></article>');
+			$('.playlist').prepend('<article id="' + val + '"><b><small><i class="fas fa-arrows-alt fa-2x"></i></small><span>' + str[1] + '</span><ins id="' + str[0] + '"><i class="fas fa-check-circle fa-2x"></i></ins><img src="https://i.ytimg.com/vi/' + str[0] + '/mqdefault.jpg"/></b></article>');
 		});
 		$('#' + player.getVideoData()['video_id']).parent().find('.fa-arrows-alt').addClass('fa-' + (player.getPlayerState() != 1 ? 'play' : 'pause') + '-circle');
 	}
@@ -186,16 +190,13 @@ $(function() {
 		}
 	}
 	$('.loop').on('click', function() {
-		option('loop');
+		$(this).toggleClass('on');
 	});
-	$('.shuffle').on('click', function() {
-		option('shuffle');
-	});
-	function option(name) {
-		if ($('.' + name).hasClass('on')) Cookies.remove(name, {path: folder});
-		else Cookies.set(name, 1, {expires: 365, path: folder});
-		$('.' + name).toggleClass('on');
-		if (name == 'shuffle') listize();
+	$('.shuffle').on('click', shuffle);
+	function shuffle() {
+		$('.shuffle').toggleClass('on');
+		$('.shuffle').hasClass('on') ? Cookies.set('shuffle', 1, {expires: 365, path: folder}) : Cookies.remove('shuffle', {path: folder});
+		listize();
 	}
 	$(window).on('keydown', function(event) {
 		if ($(event.target).is('INPUT')) return;
@@ -219,8 +220,8 @@ $(function() {
 			if ($('.playlist').length) {
 				if (event.which == 78) prevnext();
 				if (event.which == 80) prevnext(false);
-				if (event.which == 76) option('loop');
-				if (event.which == 83) option('shuffle');
+				if (event.which == 76) $('.loop').toggleClass('on');
+				if (event.which == 83) shuffle();
 			}
 		}
 	});
