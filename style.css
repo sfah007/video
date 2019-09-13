@@ -292,10 +292,10 @@ article ins {
 article i, .comments a i {
 	font-size: 11px;
 }
-.fa-plus-circle {
+article .fa-pause-circle, article .fa-plus-circle {
 	color: #f44;
 }
-.fa-check-circle {
+article .fa-play-circle, article .fa-check-circle {
 	color: #09c;
 }
 .adsense {
