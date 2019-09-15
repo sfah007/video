@@ -21,7 +21,7 @@ $(function() {
 			window.addEventListener('shake', random, false);
 		}
 	}
-	$('footer i:eq(0)').attr('src', 'https://lh3.googleusercontent.com/' + (mobile ? '-vZXIiRQJlBE/XSdhtGSzx7I/AAAAAAAACQ0/U6zS9omB0CMIYnGLTIZrFRfin6a193tWQCDMYAw' : '-1k3S10FowvA/XSdb1I9egYI/AAAAAAAACQY/3A0DNHNZwI0p8mDigBWtt15pVILInssEQCDMYAw') + '/s40-c/keyboard.jpg');
+	$('footer i:eq(0)').attr('src', 'https://lh3.googleusercontent.com/' + (mobile ? '-vZXIiRQJlBE/XSdhtGSzx7I/AAAAAAAACQ0/U6zS9omB0CMIYnGLTIZrFRfin6a193tWQCDMYAw' : '-1k3S10FowvA/XSdb1I9egYI/AAAAAAAACQY/3A0DNHNZwI0p8mDigBWtt15pVILInssEQCDMYAw') + '/s40-c/');
 	$(window).on('beforeunload', function() {
 		$('header h1 i').addClass('fa-spin');
 		setTimeout(function() {$('header h1 i').removeClass('fa-spin')}, 10000);
@@ -86,7 +86,7 @@ $(function() {
 		player = new YT.Player('player', {
 			host: 'https://www.youtube' + (Cookies.get('save_history') ? '.com' : '-nocookie.com'),
 			playerVars: {
-				'fs': mobile ? 1 : 0,
+				'fs': 0,
 				'hl': Cookies.get('language'),
 				'iv_load_policy': 3,
 				'modestbranding': 1
@@ -323,8 +323,8 @@ $(function() {
 			var button = $(this);
 			$.ajax({
 				url: 'replies.php',
-				data: 'id=' + $('.comments').attr('data-id') + '&token=' + button.attr('id'),
-				// button.parent().parent().attr('id')
+				data: 'id=' + button.parent().parent().attr('id'),
+				// $('.comments').attr('data-id') + '&token=' + button.attr('id')
 				beforeSend: function() {
 					button.css('pointer-events', 'none').addClass('on').find('i').removeClass('far fa-comment').addClass('fas fa-spinner fa-spin');
 				},
@@ -342,7 +342,8 @@ $(function() {
 		var button = $(this);
 		$.ajax({
 			url: 'replies.php',
-			data: 'id=' + $('.comments').attr('data-id') + '&token=' + button.attr('id'),
+			data: 'id=' + button.parent().parent().attr('id') + '&token=' + button.attr('id'),
+			// $('.comments').attr('data-id')
 			beforeSend: function() {
 				button.css('pointer-events', 'none').find('i').addClass('fa-spin');
 			},
