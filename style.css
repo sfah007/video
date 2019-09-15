@@ -428,6 +428,16 @@ figcaption, iframe {
 	position: absolute;
 	width: 100%;
 }
+iframe {
+	height: 100%;
+}
+figcaption {
+	height: calc(100% - 50px);
+}
+figcaption:hover i:not(.off) {
+	visibility: visible;
+	transition: .2s;
+}
 figcaption i {
 	visibility: hidden;
 	position: absolute;
@@ -440,9 +450,6 @@ figcaption i {
 figcaption i:hover {
 	font-size: 12em;
 	color: #f44;
-}
-iframe {
-	height: 100%;
 }
 legend {
 	padding: 0;
@@ -731,15 +738,6 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 		position: sticky;
 		top: 50px;
 		box-shadow: 0px 10px 10px 0px #fff;
-	}
-}
-@media (min-width: 532px) {
-	figcaption {
-		height: calc(100% - 50px);
-	}
-	figcaption:hover i:not(.off) {
-		visibility: visible;
-		transition: .2s;
 	}
 }
 @media (min-width: 360px) {
