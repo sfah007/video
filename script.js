@@ -4,14 +4,12 @@ window.onYouTubeIframeAPIReady = function() {
 };
 $(function() {
 	var folder = window.location.pathname.split('/').slice(0, -1).join('/');
-	if ($('h4').length) {
-		Cookies.set('random', $('h4').attr('id'), {expires: 365, path: folder});
-		$('h4').each(checkplus);
+	if (Cookies.get('playlist')) {
+		if ($('h4').length) $('h4').each(checkplus);
+		if ($('ins').length) $('ins').each(checkplus);
 	}
-	if ($('ins').length) {
-		Cookies.set('random', $('ins:eq(' + ~~(Math.random() * ($('ins').length - 1)) + ')').attr('id'), {expires: 365, path: folder});
-		$('ins').each(checkplus);
-	}
+	if ($('h4').length) Cookies.set('random', $('h4').attr('id'), {expires: 365, path: folder});
+	if ($('ins').length) Cookies.set('random', $('ins:eq(' + ~~(Math.random() * ($('ins').length - 1)) + ')').attr('id'), {expires: 365, path: folder});
 	if ($('.info p').length) $('.info p').each(clamp);
 	if ($('.shuffle').length && Cookies.get('shuffle')) $('.shuffle').addClass('on');
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -300,7 +298,7 @@ $(function() {
 						$('ol').css('pointer-events', 'auto');
 						tab.html(response);
 						if (name == 'comments') $('.comments p').each(clamp);
-						else $('ins').each(checkplus);
+						else if (Cookies.get('playlist')) $('ins').each(checkplus);
 						if (!mobile) $('html, body').animate({scrollTop: tab.offset().top - 50});
 					}
 				});
@@ -319,7 +317,7 @@ $(function() {
 			success: function(response) {
 				button.after(response);
 				if (button.parent().attr('class') == 'comments') button.nextAll().find('p').each(clamp);
-				else button.nextAll().find('ins').each(checkplus);
+				else if (Cookies.get('playlist')) button.nextAll().find('ins').each(checkplus);
 				if (!mobile) $('html, body').animate({scrollTop: button.offset().top - 60});
 				button.remove();
 			}
@@ -363,7 +361,7 @@ $(function() {
 		});
 	});
 	function checkplus() {
-		if (localStorage.getItem('playlist') && localStorage.getItem('playlist').includes($(this).attr('id'))) $('i', this).removeClass('fa-plus-circle').addClass('fa-check-circle');
+		if (localStorage.getItem('playlist').includes($(this).attr('id'))) $('i', this).removeClass('fa-plus-circle').addClass('fa-check-circle');
 	}
 	function clamp() {
 		if ($(this).height() > 100) $(this).addClass('clamp').after('<legend><span><i class="fas fa-chevron-circle-down"></i></span></legend>');
