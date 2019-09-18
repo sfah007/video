@@ -14,7 +14,6 @@ $(function() {
 	}
 	if ($('.info p').length) $('.info p').each(clamp);
 	if ($('.shuffle').length && Cookies.get('shuffle')) $('.shuffle').addClass('on');
-	if (localStorage.getItem('playlist') === null) localStorage.setItem('playlist', '');
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 		mobile = true;
 		var script = document.createElement('script');
@@ -151,6 +150,7 @@ $(function() {
 		var id = $(this).attr('id'), title = $(this).parent('.info').length ? $(this).text() : $(this).prev().text(), li = id + 'ჲ፨ဇ' + title + 'ဇ፨ჲ';
 		if ($('i', this).hasClass('fa-plus-circle')) {
 			Cookies.set('playlist', id, {expires: 365, path: folder});
+			if (!localStorage.getItem('playlist')) localStorage.setItem('playlist', '');
 			localStorage.setItem('playlist', localStorage.getItem('playlist') + li);
 		}
 		else {
@@ -363,7 +363,7 @@ $(function() {
 		});
 	});
 	function checkplus() {
-		if (localStorage.getItem('playlist').includes($(this).attr('id'))) $('i', this).removeClass('fa-plus-circle').addClass('fa-check-circle');
+		if (localStorage.getItem('playlist') && localStorage.getItem('playlist').includes($(this).attr('id'))) $('i', this).removeClass('fa-plus-circle').addClass('fa-check-circle');
 	}
 	function clamp() {
 		if ($(this).height() > 100) $(this).addClass('clamp').after('<legend><span><i class="fas fa-chevron-circle-down"></i></span></legend>');
