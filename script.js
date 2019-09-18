@@ -155,6 +155,7 @@ $(function() {
 		}
 		else {
 			localStorage.setItem('playlist', localStorage.getItem('playlist').replace(li, ''));
+			if (localStorage.getItem('playlist') == '') Cookies.remove('playlist', {path: folder});
 			if ($('.playlist').length) {
 				var item = $(this).parent().parent();
 				item.fadeOut();
