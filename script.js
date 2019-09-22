@@ -116,7 +116,10 @@ $(function() {
 				},
 				'onStateChange': function(event) {
 					if ($('.playlist').length) {
-						if (event.data == 0) prevnext();
+						if (event.data == 0) {
+							if ($('.fa-history').length) player.playVideo();
+							else prevnext();
+						}
 						if (event.data == 1) iconize('pause');
 						if (event.data == 2 || event.data == 5) iconize('play');
 					}
@@ -200,9 +203,14 @@ $(function() {
 			else iconize('play');
 		}
 	}
-	$('.loop').on('click', function() {
-		$(this).toggleClass('on');
-	});
+	$('.loop').on('click', looper);
+	function looper() {
+		if ($('.loop').hasClass('on')) {
+			if ($('.fa-undo-alt').length) $('.loop').find('i').toggleClass('fa-undo-alt fa-history');
+			else $('.loop').removeClass('on').find('i').toggleClass('fa-history fa-undo-alt');
+		}
+		else $('.loop').addClass('on');
+	}
 	$('.shuffle').on('click', shuffle);
 	function shuffle() {
 		$('.shuffle').toggleClass('on');
@@ -231,7 +239,7 @@ $(function() {
 			if ($('.playlist').length) {
 				if (event.which == 78) prevnext();
 				if (event.which == 80) prevnext(false);
-				if (event.which == 76) $('.loop').toggleClass('on');
+				if (event.which == 76) looper();
 				if (event.which == 83) shuffle();
 			}
 		}
