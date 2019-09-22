@@ -4,6 +4,8 @@ window.onYouTubeIframeAPIReady = function() {
 };
 $(function() {
 	var folder = window.location.pathname.split('/').slice(0, -1).join('/');
+	$("[name='country']").val(Cookies.get('country'));
+	$("[name='language']").val(Cookies.get('language'));
 	if (Cookies.get('playlist')) {
 		if ($('h4').length) $('h4').each(checkplus);
 		if ($('ins').length) $('ins').each(checkplus);
