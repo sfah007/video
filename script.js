@@ -270,7 +270,7 @@ $(function() {
 	}
 	$('.download a').on('click', function(event) {
 		event.preventDefault();
-		var button = $(this), link = $(this).attr('href').replace('?download', 'https://de.invidious.snopyta.org/latest_version?download_widget');
+		var button = $(this), link = $(this).attr('href').replace('?download', 'https://invidious.snopyta.org/latest_version?download_widget');
 		$.ajax({
 			url: 'https://images' + ~~(Math.random() * 33) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + encodeURIComponent(link),
 			type: 'HEAD',
