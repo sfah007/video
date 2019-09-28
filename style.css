@@ -986,6 +986,9 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 	.info div i, .comments blockquote i {
 		margin: 0 4px 0 20px;
 	}
+	html[dir="rtl"] .info div i, html[dir="rtl"] .comments blockquote i {
+		margin: 0 20px 0 4px;
+	}
 	.info, .info p a {
 		margin: 0 10px;
 	}
