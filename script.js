@@ -83,6 +83,10 @@ $(function() {
 				list += $('ins', e).attr('id') + 'ჲ፨ဇ' + $('span', e).text() + 'ဇ፨ჲ';
 			});
 			localStorage.setItem('playlist', list);
+			if ($('.shuffle').hasClass('on')) {
+				$('.shuffle').removeClass('on');
+				Cookies.remove('shuffle', {path: folder});
+			}
 		}
 	});
 	$('.playlist').disableSelection();
@@ -344,14 +348,14 @@ $(function() {
 					button.css('pointer-events', 'none').addClass('on').find('i').removeClass('far fa-comment').addClass('fas fa-spinner fa-spin');
 				},
 				success: function(response) {
-					button.css('pointer-events', 'auto').find('i').removeClass('fas fa-spinner fa-spin').addClass('far fa-comment');
+					button.css('pointer-events', 'auto').find('i').removeClass('fa-spinner fa-spin').addClass('fa-comment');
 					button.parent().after('<dt>' + response + '</dt>');
 					button.parent().next().find('p').each(clamp);
 					if (!mobile) $('html, body').animate({scrollTop: button.offset().top - 10});
 				}
 			});
 		}
-		else $(this).toggleClass('on').parent().next().slideToggle();
+		else $(this).toggleClass('on').find('i').toggleClass('far fas').parent().parent().next().slideToggle();
 	});
 	$(document).on('click', 'dt b', function() {
 		var button = $(this);
