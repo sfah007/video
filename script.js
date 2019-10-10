@@ -4,8 +4,8 @@ window.onYouTubeIframeAPIReady = function() {
 };
 $(function() {
 	var folder = window.location.pathname.split('/').slice(0, -1).join('/');
-	$("[name='country']").val(Cookies.get('country'));
-	$("[name='language']").val(Cookies.get('language'));
+	$('[name="country"]').val(Cookies.get('country'));
+	$('[name="language"]').val(Cookies.get('language'));
 	if (Cookies.get('playlist')) {
 		if ($('h4').length) $('h4').each(checkplus);
 		if ($('ins').length) $('ins').each(checkplus);
@@ -274,7 +274,7 @@ $(function() {
 	}
 	$('.download a').on('click', function(event) {
 		event.preventDefault();
-		var button = $(this), link = $(this).attr('href').replace('?download', 'https://invidious.snopyta.org/latest_version?download_widget');
+		var button = $(this), link = $(this).attr('href').replace('?download', 'https://proxy.invidious.snopyta.org/latest_version?download_widget');
 		$.ajax({
 			url: 'https://images' + ~~(Math.random() * 33) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + encodeURIComponent(link),
 			type: 'HEAD',
