@@ -100,12 +100,6 @@ $(function() {
 				'modestbranding': 1
 			},
 			events: {
-				'onError': function() {
-					if ($('.playlist').length) {
-						$('#' + player.getVideoData()['video_id']).parent().parent().fadeOut();
-						prevnext();
-					}
-				},
 				'onReady': function() {
 					if ($('.playlist').length) listize();
 					var first = $('h4').length ? $('h4').attr('id') : $('ins:eq(0)').attr('id');
@@ -128,6 +122,14 @@ $(function() {
 						if (event.data == 2 || event.data == 5) iconize('play');
 					}
 					else if (event.data == 0 && Cookies.get('infinite_playback')) random();
+				},
+				'onError': function() {
+					if ($('.playlist').length) {
+						var broken = $('#' + player.getVideoData()['video_id']).parent().parent();
+						prevnext();
+						broken.remove();
+					}
+					else $('iframe').attr('src', 'https://invidio.us/embed/' + $('h4').attr('id') + '?autoplay=1');
 				}
 			}
 		});
@@ -274,7 +276,7 @@ $(function() {
 	}
 	$('.download a').on('click', function(event) {
 		event.preventDefault();
-		var button = $(this), link = $(this).attr('href').replace('?download', 'https://proxy.invidious.snopyta.org/latest_version?download_widget');
+		var button = $(this), link = $(this).attr('href').replace('?download', 'https://invidio.us/latest_version?download_widget');
 		$.ajax({
 			url: 'https://images' + ~~(Math.random() * 33) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + encodeURIComponent(link),
 			type: 'HEAD',
