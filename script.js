@@ -3,7 +3,7 @@ window.onYouTubeIframeAPIReady = function() {
 	YTdeferred.resolve(window.YT);
 };
 $(function() {
-	var folder = window.location.pathname.split('/').slice(0, -1).join('/');
+	var timeout, folder = window.location.pathname.split('/').slice(0, -1).join('/');
 	$('[name="country"]').val(Cookies.get('country'));
 	$('[name="language"]').val(Cookies.get('language'));
 	if (Cookies.get('playlist')) {
@@ -20,7 +20,7 @@ $(function() {
 		script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
 		document.head.appendChild(script);
 		script.onload = function() {
-			var shakeEvent = new Shake({threshold: 23});
+			var shakeEvent = new Shake({threshold: 30});
 			shakeEvent.start();
 			window.addEventListener('shake', random, false);
 		}
@@ -133,6 +133,15 @@ $(function() {
 				}
 			}
 		});
+	});
+	$('figcaption').on('mousemove', function() {
+		window.clearTimeout(timeout);
+		$('i', this).show();
+		$(this).css('cursor', 'auto');
+		timeout = window.setTimeout(function() {
+			$('figcaption').css('cursor', 'none');
+			$('figcaption i').fadeOut();
+		}, 2000);
 	});
 	$('figcaption').on('click', function(event) {
 		if ($(event.target).is('i')) return;
@@ -254,7 +263,7 @@ $(function() {
 		$('figure').toggleFullScreen();
 	});
 	$(document).on('fullscreenchange', function() {
-		$('figure').fullScreen() ? $('.fa-expand').addClass('off') : $('.fa-expand').removeClass('off');
+		$('.fa-expand').toggleClass('off');
 	});
 	$(document).on('click', 'time', function() {
 		var elapsed = $(this).attr('data-time');
@@ -276,21 +285,7 @@ $(function() {
 	}
 	$('.download a').on('click', function(event) {
 		event.preventDefault();
-		var button = $(this), link = $(this).attr('href').replace('?download', 'https://invidious.drycat.fr/latest_version?download_widget');
-		$.ajax({
-			url: 'https://images' + ~~(Math.random() * 33) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + encodeURIComponent(link),
-			type: 'HEAD',
-			beforeSend: function() {
-				button.addClass('on');
-			},
-			success: function() {
-				button.removeClass('on');
-				window.location.href = link;
-			},
-			error: function() {
-				button.fadeOut();
-			}
-		});
+		window.location.href = $(this).attr('href').replace('?download', 'https://invidio.us/latest_version?download_widget');
 	});
 	$(document).on('click', 'legend', function() {
 		$(this).prev().toggleClass('clamp');
