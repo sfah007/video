@@ -405,6 +405,7 @@ footer {
 	height: 50px;
 	text-align: center;
 	background-color: #282828;
+	cursor: default;
 }
 footer i {
 	color: #fff;
