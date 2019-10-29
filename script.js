@@ -1,9 +1,8 @@
-var callback, mobile = false, player, YTdeferred = $.Deferred();
+var callback, folder = window.location.pathname.split('/').slice(0, -1).join('/') + '/', mobile = false, player, timeout, YTdeferred = $.Deferred();
 window.onYouTubeIframeAPIReady = function() {
 	YTdeferred.resolve(window.YT);
 };
 $(function() {
-	var timeout, folder = window.location.pathname.split('/').slice(0, -1).join('/');
 	$('[name="country"]').val(Cookies.get('country'));
 	$('[name="language"]').val(Cookies.get('language'));
 	if (Cookies.get('playlist')) {
@@ -17,13 +16,13 @@ $(function() {
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 		mobile = true;
 		var script = document.createElement('script');
-		script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
-		document.head.appendChild(script);
 		script.onload = function() {
 			var shakeEvent = new Shake({threshold: 30});
 			shakeEvent.start();
 			window.addEventListener('shake', random, false);
 		}
+		script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
+		document.head.appendChild(script);
 	}
 	$('footer i:eq(0)').attr('src', 'https://lh3.googleusercontent.com/' + (mobile ? '-vZXIiRQJlBE/XSdhtGSzx7I/AAAAAAAACQ0/U6zS9omB0CMIYnGLTIZrFRfin6a193tWQCDMYAw' : '-1k3S10FowvA/XSdb1I9egYI/AAAAAAAACQY/3A0DNHNZwI0p8mDigBWtt15pVILInssEQCDMYAw') + '/s40-c/');
 	$(window).on('beforeunload', function() {
@@ -283,9 +282,11 @@ $(function() {
 		$('.modal').hide();
 		$('body').removeClass('freeze');
 	}
-	$('.download a').on('click', function(event) {
-		event.preventDefault();
-		window.location.href = $(this).attr('href').replace('?download', 'https://invidio.us/latest_version?download_widget');
+	$('.download a').on('click', function() {
+		$(this).addClass('on');
+		var button = $(this);
+		setTimeout(function() {button.removeClass('on')}, 3000);
+		window.location.href = 'https://invidio.us/latest_version?download_widget=' + encodeURI('{"id":"' + $('h4').attr('id') + '","title":"' + $('h4').text() + '.' + $(this).attr('type') + '","itag":"' + $(this).attr('download') + '"}');
 	});
 	$(document).on('click', 'legend', function() {
 		$(this).prev().toggleClass('clamp');
