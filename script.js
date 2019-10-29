@@ -1,4 +1,4 @@
-var callback, folder = window.location.pathname.split('/').slice(0, -1).join('/') + '/', mobile = false, player, timeout, YTdeferred = $.Deferred();
+var callback, folder = window.location.pathname.split('/').slice(0, -1).join('/'), mobile = false, player, timeout, YTdeferred = $.Deferred();
 window.onYouTubeIframeAPIReady = function() {
 	YTdeferred.resolve(window.YT);
 };
