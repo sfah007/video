@@ -133,15 +133,21 @@ $(function() {
 			}
 		});
 	});
-	$('figcaption').on('mousemove', function() {
-		window.clearTimeout(timeout);
-		$('i', this).show();
-		$(this).css('cursor', 'auto');
-		timeout = window.setTimeout(function() {
+	$('figcaption').on('mousemove', lurk);
+	$('figcaption').on('mousedown', lurk);
+	$('figcaption').on('touchmove', lurk);
+	$('figcaption').on('mousewheel', lurk);
+	$('figcaption').on('MSPointerMove', lurk);
+	$('figcaption').on('DOMMouseScroll', lurk);
+	function lurk() {
+		clearTimeout(timeout);
+		$('figcaption').css('cursor', 'auto');
+		$('figcaption i').show();
+		timeout = setTimeout(function() {
 			$('figcaption').css('cursor', 'none');
 			$('figcaption i').fadeOut();
 		}, 2000);
-	});
+	}
 	$('figcaption').on('click', function(event) {
 		if ($(event.target).is('i')) return;
 		playpause();
@@ -283,10 +289,21 @@ $(function() {
 		$('body').removeClass('freeze');
 	}
 	$('.download a').on('click', function() {
-		$(this).addClass('on');
-		var button = $(this);
-		setTimeout(function() {button.removeClass('on')}, 3000);
-		window.location.href = 'https://invidio.us/latest_version?download_widget=' + encodeURI('{"id":"' + $('h4').attr('id') + '","title":"' + $('h4').text() + '.' + $(this).attr('type') + '","itag":"' + $(this).attr('download') + '"}');
+		var button = $(this), invidious = 'https://watch.nettohikari.com/latest_version?download_widget=' + encodeURI('{"id":"' + $('h4').attr('id') + '","title":"' + $('h4').text() + '.' + button.attr('type') + '","itag":"' + button.attr('download') + '"}');
+		$.ajax({
+			url: 'https://images' + ~~(Math.random() * 33) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + encodeURIComponent(invidious),
+			type: 'HEAD',
+			beforeSend: function() {
+				button.addClass('on');
+			},
+			success: function() {
+				button.removeClass('on');
+				window.location.href = invidious;
+			},
+			error: function() {
+				button.fadeOut();
+			}
+		});
 	});
 	$(document).on('click', 'legend', function() {
 		$(this).prev().toggleClass('clamp');
