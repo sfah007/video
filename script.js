@@ -27,7 +27,7 @@ $(function() {
 	$('footer i:eq(0)').attr('src', 'https://lh3.googleusercontent.com/' + (mobile ? '-vZXIiRQJlBE/XSdhtGSzx7I/AAAAAAAACQ0/U6zS9omB0CMIYnGLTIZrFRfin6a193tWQCDMYAw' : '-1k3S10FowvA/XSdb1I9egYI/AAAAAAAACQY/3A0DNHNZwI0p8mDigBWtt15pVILInssEQCDMYAw') + '/s40-c/');
 	$(window).on('beforeunload', function() {
 		$('header h1 i').addClass('fa-spin');
-		setTimeout(function() {$('header h1 i').removeClass('fa-spin')}, 10000);
+		window.setTimeout(function() {$('header h1 i').removeClass('fa-spin')}, 10000);
 	});
 	$('form').on('submit', function() {
 		$('button i', this).addClass('fa-spinner fa-spin');
@@ -140,10 +140,10 @@ $(function() {
 	$('figcaption').on('MSPointerMove', lurk);
 	$('figcaption').on('DOMMouseScroll', lurk);
 	function lurk() {
-		clearTimeout(timeout);
+		window.clearTimeout(timeout);
 		$('figcaption').css('cursor', 'auto');
 		$('figcaption i').show();
-		timeout = setTimeout(function() {
+		timeout = window.setTimeout(function() {
 			$('figcaption').css('cursor', 'none');
 			$('figcaption i').fadeOut();
 		}, 2000);
@@ -157,7 +157,7 @@ $(function() {
 	}
 	$('.playlist aside a').on('click', function() {
 		$('figure, ol, section').fadeOut();
-		setTimeout(function() {$('main').empty()}, 600);
+		window.setTimeout(function() {$('main').empty()}, 600);
 		Cookies.remove('playlist', {path: folder});
 		localStorage.setItem('playlist', '');
 	});
@@ -182,7 +182,7 @@ $(function() {
 			if ($('.playlist').length) {
 				var item = $(this).parent().parent();
 				item.fadeOut();
-				setTimeout(function() {item.remove()}, 600);
+				window.setTimeout(function() {item.remove()}, 600);
 				if (id == player.getVideoData()['video_id']) prevnext();
 			}
 		}
@@ -289,21 +289,7 @@ $(function() {
 		$('body').removeClass('freeze');
 	}
 	$('.download a').on('click', function() {
-		var button = $(this), invidious = 'https://watch.nettohikari.com/latest_version?download_widget=' + encodeURI('{"id":"' + $('h4').attr('id') + '","title":"' + $('h4').text() + '.' + button.attr('type') + '","itag":"' + button.attr('download') + '"}');
-		$.ajax({
-			url: 'https://images' + ~~(Math.random() * 33) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + encodeURIComponent(invidious),
-			type: 'HEAD',
-			beforeSend: function() {
-				button.addClass('on');
-			},
-			success: function() {
-				button.removeClass('on');
-				window.location.href = invidious;
-			},
-			error: function() {
-				button.fadeOut();
-			}
-		});
+		window.open('https://watch.nettohikari.com/latest_version?id=' + $('h4').attr('id') + '&itag=' + $(this).attr('id'));
 	});
 	$(document).on('click', 'legend', function() {
 		$(this).prev().toggleClass('clamp');
