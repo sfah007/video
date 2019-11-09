@@ -289,7 +289,7 @@ $(function() {
 		$('body').removeClass('freeze');
 	}
 	$('.download a').on('click', function() {
-		window.open('https://watch.nettohikari.com/latest_version?id=' + $('h4').attr('id') + '&itag=' + $(this).attr('id'));
+		window.open('https://watch.nettohikari.com/latest_version?id=' + $('h4').attr('id') + '&itag=' + $(this).attr('id') + ($(this).parent().prev().find('a').attr('href') == '?c=10' ? '&local=true' : ''));
 	});
 	$(document).on('click', 'legend', function() {
 		$(this).prev().toggleClass('clamp');
