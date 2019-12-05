@@ -3,6 +3,10 @@ window.onYouTubeIframeAPIReady = function() {
 	YTdeferred.resolve(window.YT);
 };
 $(function() {
+	if (Cookies.get('auto_start')) $('[name="auto_start"]').attr('checked', true);
+	if (Cookies.get('infinite_playback')) $('[name="infinite_playback"]').attr('checked', true);
+	if (Cookies.get('safe_search')) $('[name="safe_search"]').attr('checked', true);
+	if (Cookies.get('save_history')) $('[name="save_history"]').attr('checked', true);
 	$('[name="country"]').val(Cookies.get('country'));
 	$('[name="language"]').val(Cookies.get('language'));
 	if (Cookies.get('playlist')) {
@@ -289,7 +293,7 @@ $(function() {
 		$('body').removeClass('freeze');
 	}
 	$('.download a').on('click', function() {
-		window.open('https://invidio.us/latest_version?id=' + $('h4').attr('id') + '&itag=' + $(this).attr('id') + ($(this).parent().prev().find('a').attr('href') == '?c=10' ? '&local=true' : ''));
+		window.open('https://yewtu.be/latest_version?id=' + $('h4').attr('id') + '&itag=' + $(this).attr('id') + ($(this).parent().prev().find('a').attr('href') == '?c=10' ? '&local=true' : ''));
 	});
 	$(document).on('click', 'legend', function() {
 		$(this).prev().toggleClass('clamp');
