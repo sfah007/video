@@ -186,7 +186,7 @@ $(function() {
 			if ($('.playlist').length) {
 				var item = $(this).parent().parent();
 				item.fadeOut();
-				window.setTimeout(function() {item.remove()}, 600);
+				window.setTimeout(function() {item.remove()}, 400);
 				if (id == player.getVideoData()['video_id']) prevnext();
 			}
 		}
@@ -268,11 +268,18 @@ $(function() {
 			}
 		}
 	});
-	$('.fa-expand').on('click', function() {
-		$('figure').toggleFullScreen();
+	$('figcaption i').on('click', function() {
+		if (mobile) {
+			let playing = (player.getPlayerState() == 1) ? true : false;
+			if (playing) player.pauseVideo();
+			$('figure').fullScreen(true);
+			screen.orientation.lock('landscape');
+			if (playing) window.setTimeout(function() {player.playVideo()}, 400);
+		}
+		else $('figure').fullScreen(true);
 	});
 	$(document).on('fullscreenchange', function() {
-		$('.fa-expand').toggleClass('off');
+		$('figcaption i').toggleClass('off');
 	});
 	$(document).on('click', 'time', function() {
 		var elapsed = $(this).attr('data-time');
