@@ -1,4 +1,4 @@
-var callback, folder = window.location.pathname.split('/').slice(0, -1).join('/'), mobile = false, player, timeout, YTdeferred = $.Deferred();
+var callback, player, timeout, YTdeferred = $.Deferred(), folder = window.location.pathname.split('/').slice(0, -1).join('/'), mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 window.onYouTubeIframeAPIReady = function() {
 	YTdeferred.resolve(window.YT);
 };
@@ -17,8 +17,7 @@ $(function() {
 	if ($('ins').length) Cookies.set('random', $('ins:eq(' + ~~(Math.random() * ($('ins').length - 1)) + ')').attr('id'), {expires: 365, path: folder});
 	if ($('.info p').length) $('.info p').each(clamp);
 	if ($('.shuffle').length && Cookies.get('shuffle')) $('.shuffle').addClass('on');
-	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-		mobile = true;
+	if (mobile) {
 		var script = document.createElement('script');
 		script.onload = function() {
 			var shakeEvent = new Shake({threshold: 30});
@@ -81,7 +80,7 @@ $(function() {
 		handle: 'small',
 		items: 'article',
 		update: function() {
-			var list = '';
+			let list = '';
 			$('article').each(function(i, e) {
 				list += $('ins', e).attr('id') + 'ჲ፨ဇ' + $('span', e).text() + 'ဇ፨ჲ';
 			});
@@ -193,17 +192,17 @@ $(function() {
 		$('i', this).toggleClass('fa-plus-circle fa-check-circle');
 	});
 	function listize() {
-		var arr = localStorage.getItem('playlist').replace(/ဇ፨ჲ$/, '').split('ဇ፨ჲ');
+		$('article').remove();
+		let arr = localStorage.getItem('playlist').replace(/ဇ፨ჲ$/, '').split('ဇ፨ჲ').reverse();
 		if ($('.shuffle').hasClass('on')) {
 			for (let i = arr.length - 1; i > 0; i--) {
 				let j = Math.floor(Math.random() * (i + 1));
 				[arr[i], arr[j]] = [arr[j], arr[i]];
 			}
 		}
-		$('article').remove();
-		$.each(arr.reverse(), function(i, val) {
-			var str = val.split('ჲ፨ဇ');
-			$('.playlist').prepend('<article><b><small><i class="fas fa-arrows-alt fa-2x"></i></small><span>' + str[1] + '</span><ins id="' + str[0] + '"><i class="fas fa-check-circle fa-2x"></i></ins><img src="https://i.ytimg.com/vi/' + str[0] + '/mqdefault.jpg"/></b></article>');
+		arr.map(function(e) {
+			var val = e.split('ჲ፨ဇ');
+			$('.playlist').prepend('<article><b><small><i class="fas fa-arrows-alt fa-2x"></i></small><span>' + val[1] + '</span><ins id="' + val[0] + '"><i class="fas fa-check-circle fa-2x"></i></ins><img src="https://i.ytimg.com/vi/' + val[0] + '/mqdefault.jpg"/></b></article>');
 		});
 		$('#' + player.getVideoData()['video_id']).parent().find('.fa-arrows-alt').addClass('fa-' + (player.getPlayerState() != 1 ? 'play' : 'pause') + '-circle');
 		Cookies.set('random', $('ins:eq(' + ~~(Math.random() * ($('ins').length - 1)) + ')').attr('id'), {expires: 365, path: folder});
@@ -300,7 +299,7 @@ $(function() {
 		$('body').removeClass('freeze');
 	}
 	$('.download a').on('click', function() {
-		window.open('https://yewtu.be/latest_version?id=' + $('h4').attr('id') + '&itag=' + $(this).attr('id') + ($(this).parent().prev().find('a').attr('href') == '?c=10' ? '&local=true' : ''));
+		window.open('https://invidio.us/latest_version?id=' + $('h4').attr('id') + '&itag=' + $(this).attr('id') + ($(this).parent().prev().find('a').attr('href') == '?c=10' ? '&local=true' : ''));
 	});
 	$(document).on('click', 'legend', function() {
 		$(this).prev().toggleClass('clamp');
