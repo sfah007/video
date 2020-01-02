@@ -554,31 +554,6 @@ html[dir="rtl"] .info div i {
 html[dir="rtl"] .info div i:first-of-type {
 	margin-right: 0;
 }
-.download a {
-	margin: 0 5px;
-}
-.download a:before {
-	font-family: 'Font Awesome 5 Free';
-	line-height: 1;
-	padding: 0 3px;
-}
-.download a:nth-of-type(odd):before {
-	font-weight: 900;
-}
-.download a:nth-of-type(even):before {
-	font-weight: 400;
-}
-.download a:nth-of-type(-n+2):before {
-	content: '\f1c8';
-}
-.download a:nth-of-type(n+3):before {
-	content: '\f1c7';
-}
-.download .on:before {
-	display: inline-block;
-	content: '\f2dc' !important;
-	animation: spin 1s infinite linear;
-}
 .info p {
 	margin: 10px 0 0;
 	word-break: break-word;
@@ -719,17 +694,46 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 .freeze *, .freeze *:before {
 	transition: 0s !important;
 }
-.modal {
+.modal, .keyboard {
 	display: none;
 	visibility: visible;
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	max-width: 95%;
-	max-height: 95%;
 	cursor: zoom-out;
 	pointer-events: auto !important;
+}
+.modal {
+	max-width: 95%;
+	max-height: 95%;
+}
+.keyboard {
+	list-style-type: none;
+	margin: 0;
+	padding: 20px;
+	width: 90%;
+	max-height: 90%;
+	overflow: auto;
+	font-size: 14px;
+	line-height: 1;
+	color: #282828;
+	background-color: #c1c1c1;
+	border-radius: 5px;
+}
+.keyboard b {
+	display: inline-block;
+	width: 25%;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: Cinzel;
+}
+.keyboard li {
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.keyboard li:nth-child(even) {
+	background-color: #f1f1f1;
 }
 @media (orientation: portrait) {
 	figure {
@@ -832,7 +836,7 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 	h1, h2, h3, h4, aside {
 		font-size: 18px;
 	}
-	header i, ol, aside i, footer i, .categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article {
+	header i, ol, aside i, footer i, .categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, .keyboard {
 		font-size: 16px;
 	}
 	article i, .comments a i {
@@ -913,6 +917,9 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 	footer i {
 		padding: 17px;
 	}
+	.keyboard {
+		width: 60%;
+	}
 }
 @media (min-width: 1040px) {
 	header span {
@@ -937,7 +944,7 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 	header li i {
 		font-size: 15px;
 	}
-	.categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article {
+	.categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, .keyboard {
 		font-size: 18px;
 	}
 	.categories a {
@@ -1008,6 +1015,9 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 	footer i:nth-of-type(2) {
 		margin: 0 100px;
 	}
+	.keyboard {
+		width: 50%;
+	}
 }
 @media (min-width: 1380px) {
 	aside {
@@ -1031,7 +1041,7 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 	header li i {
 		font-size: 16px;
 	}
-	.categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article {
+	.categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, .keyboard {
 		font-size: 20px;
 	}
 	.categories a {
@@ -1081,5 +1091,8 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 	}
 	footer i {
 		padding: 11px;
+	}
+	.keyboard {
+		width: 40%;
 	}
 }
