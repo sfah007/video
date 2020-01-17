@@ -287,6 +287,9 @@ article ins {
 	right: 0;
 	text-decoration: none;
 	border-bottom-right-radius: 5px;
+	cursor: grab;
+}
+article ins:active, h4:active {
 	cursor: grabbing;
 }
 article i, .comments a i {
@@ -514,9 +517,6 @@ h4, h5 {
 h4 {
 	font-size: 14px;
 	cursor: grab;
-}
-h4:active {
-	cursor: grabbing;
 }
 h4 i {
 	display: block !important;
