@@ -303,7 +303,8 @@ $(function() {
 		$('body').hasClass('freeze') ? $('.keyboard').hide().parent().removeClass('freeze') : $('.keyboard').show().parent().addClass('freeze');
 	}
 	$(document).on('fullscreenchange', function() {
-		$('figcaption i').toggleClass('off');
+		if ($(document).fullScreen()) $('figcaption i').addClass('off');
+		else $('figcaption i').removeClass('off');
 	});
 	$('figcaption i').on('click', tfs);
 	function tfs() {
