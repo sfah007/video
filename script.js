@@ -26,7 +26,7 @@ $(function() {
 		}
 		script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
 		document.head.appendChild(script);
-		$('.keyboard').html('<li>Shake your mobile device to go to a random video.</li>');
+		$('.keyboard b:eq(0)').text('Shake');
 	}
 	$(window).on('beforeunload', function() {
 		$('header h1 i').addClass('fa-spin');
@@ -96,14 +96,12 @@ $(function() {
 		player = new YT.Player('player', {
 			host: 'https://www.youtube' + (Cookies.get('save_history') ? '.com' : '-nocookie.com'),
 			playerVars: {
-				'fs': 0,
 				'hl': Cookies.get('language'),
 				'iv_load_policy': 3,
 				'modestbranding': 1
 			},
 			events: {
 				'onReady': function() {
-					if (Cookies.get('volume')) player.setVolume(Cookies.get('volume'));
 					if ($('.playlist').length) listize();
 					var first = $('h4').length ? $('h4').attr('id') : $('ins:eq(0)').attr('id');
 					if (Cookies.get('save_history')) {
@@ -137,23 +135,7 @@ $(function() {
 			}
 		});
 	});
-	$('figcaption').on('mousemove', lurk);
-	$('figcaption').on('mousedown', lurk);
-	$('figcaption').on('touchmove', lurk);
-	$('figcaption').on('mousewheel', lurk);
-	$('figcaption').on('MSPointerMove', lurk);
-	$('figcaption').on('DOMMouseScroll', lurk);
-	function lurk() {
-		clearTimeout(timeout);
-		$('figcaption').css('cursor', 'auto');
-		$('figcaption i').show();
-		timeout = setTimeout(function() {
-			$('figcaption').css('cursor', 'none');
-			$('figcaption i').fadeOut();
-		}, 2000);
-	}
-	$('figcaption').on('click', function(e) {
-		if ($(e.target).is('i')) return;
+	$('figcaption').on('click', function() {
 		playpause();
 	});
 	function playpause() {
@@ -255,14 +237,12 @@ $(function() {
 		if ($(e.target).is('INPUT')) return;
 		if (e.which == 13) random();
 		if (e.which == 27 && $('body').hasClass('freeze')) defrost();
-		if (e.which == 75 && !$('.modal')[0].hasAttribute('src') && !$(document).fullScreen()) keyboard();
+		if (e.which == 75 && !$('.modal')[0].hasAttribute('src')) keyboard();
 		if (e.which == 78 && $('[rel="next"]').length) location.href = $('[rel="next"]').attr('href');
 		if (e.which == 80 && $('[rel="prev"]').length) location.href = $('[rel="prev"]').attr('href');
 		if ($('h4').length || $('.playlist').length) {
 			if (e.which == 32) playpause();
-			if (e.which == 70 && !$('body').hasClass('freeze')) tfs();
 			if (e.which == 77) player.isMuted() ? player.unMute() : player.mute();
-			if (e.which == 107 || e.which == 109) Cookies.set('volume', player.getVolume(), {expires: 365, path: folder});
 			if ($('.playlist').length) {
 				if (e.which == 78) prevnext();
 				if (e.which == 80) prevnext(false);
@@ -301,21 +281,6 @@ $(function() {
 	$('footer i:eq(0), .keyboard').on('click', keyboard);
 	function keyboard() {
 		$('body').hasClass('freeze') ? $('.keyboard').hide().parent().removeClass('freeze') : $('.keyboard').show().parent().addClass('freeze');
-	}
-	$(document).on('fullscreenchange', function() {
-		if ($(document).fullScreen()) $('figcaption i').addClass('off');
-		else $('figcaption i').removeClass('off');
-	});
-	$('figcaption i').on('click', tfs);
-	function tfs() {
-		if (mobile) {
-			let playing = (player.getPlayerState() == 1) ? true : false;
-			if (playing) player.pauseVideo();
-			$('figure').fullScreen(true);
-			screen.orientation.lock('landscape');
-			if (playing) setTimeout(function() {player.playVideo()}, 400);
-		}
-		else $('figure').toggleFullScreen();
 	}
 	$('.info div:eq(1) a').on('click', function() {
 		open('https://invidio.us/latest_version?id=' + $('h4').attr('id') + '&itag=' + $(this).attr('id') + ($(this).parent().prev().find('a').attr('href') == '?c=10' ? '&local=true' : ''));
