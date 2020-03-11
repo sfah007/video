@@ -26,6 +26,7 @@ $(function() {
 		}
 		script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
 		document.head.appendChild(script);
+		$('figcaption').remove();
 		$('.keyboard b:eq(0)').text('Shake');
 	}
 	$(window).on('beforeunload', function() {
