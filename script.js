@@ -17,6 +17,7 @@ $(function() {
 	if ($('ins').length) Cookies.set('random', $('ins:eq(' + ~~(Math.random() * ($('ins').length - 1)) + ')').attr('id'), {expires: 365, path: folder});
 	if ($('.info p').length) $('.info p').each(clamp);
 	if ($('.shuffle').length && Cookies.get('shuffle')) $('.shuffle').addClass('on');
+	if ($('.playlist').length) var clear = $('aside').html();
 	if (mobile) {
 		var script = document.createElement('script');
 		script.onload = function() {
@@ -142,11 +143,15 @@ $(function() {
 	function playpause() {
 		player.getPlayerState() == 1 ? player.pauseVideo() : player.playVideo();
 	}
-	$('.playlist aside a').on('click', function() {
-		$('figure, ol, section').fadeOut();
-		setTimeout(function() {$('main').empty()}, 600);
-		Cookies.remove('playlist', {path: folder});
-		localStorage.setItem('playlist', '');
+	$(document).on('click', '.playlist aside a', function() {
+		if ($(this).hasClass('prev')) {
+			$('figure, ol, section').fadeOut();
+			setTimeout(function() {$('main').empty()}, 600);
+			Cookies.remove('playlist', {path: folder});
+			localStorage.setItem('playlist', '');
+		}
+		else if ($(this).hasClass('next')) $(this).parent().html(clear);
+		else $(this).parent().html('<a class="prev"><i class="fas fa-check"></i></a><a class="next"><i class="fas fa-times"></i></a>');
 	});
 	$(document).on('click', '.playlist img', function() {
 		if ($(this).prev().attr('id') == player.getVideoData()['video_id']) playpause();
