@@ -122,8 +122,8 @@ select, button, #q {
 }
 input[type="checkbox"] {
 	margin: 0 2px 0 0;
-	transform: scale(1.2);
-	vertical-align: -3px;
+	transform: scale(1.1);
+	vertical-align: -2px;
 }
 html[dir="rtl"] input[type="checkbox"] {
 	margin: 0 0 0 2px;
@@ -182,7 +182,7 @@ label {
 	font-size: 12px;
 	line-height: 1.5;
 	color: #fff;
-	text-shadow: 0 0 5px #282828;
+	text-shadow: 0 0 5px #000;
 }
 .settings u {
 	display: inline-block;
@@ -760,8 +760,7 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 	}
 	input[type="checkbox"] {
 		margin: 0 3px 0 0;
-		transform: scale(1.3);
-		vertical-align: -2px;
+		transform: scale(1.2);
 	}
 	html[dir="rtl"] input[type="checkbox"] {
 		margin: 0 0 0 3px;
@@ -831,8 +830,7 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 	}
 	input[type="checkbox"] {
 		margin: 0 4px 0 0;
-		transform: scale(1.4);
-		vertical-align: -1px;
+		transform: scale(1.3);
 	}
 	html[dir="rtl"] input[type="checkbox"] {
 		margin: 0 0 0 4px;
@@ -929,12 +927,12 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 		height: 45px;
 	}
 	input[type="checkbox"] {
-		margin: 0 5px 0 0;
-		transform: scale(1.5);
+		margin: 0 6px 0 0;
+		transform: scale(1.4);
 		vertical-align: 0;
 	}
 	html[dir="rtl"] input[type="checkbox"] {
-		margin: 0 0 0 5px;
+		margin: 0 0 0 6px;
 	}
 	.settings p {
 		padding: 0 60px;
@@ -1026,11 +1024,11 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 		height: 50px;
 	}
 	input[type="checkbox"] {
-		margin: 0 6px 0 0;
+		margin: 0 8px 0 0;
 		transform: scale(1.6);
 	}
 	html[dir="rtl"] input[type="checkbox"] {
-		margin: 0 0 0 6px;
+		margin: 0 0 0 8px;
 	}
 	.settings div:nth-child(-n+4) {
 		width: 25%;
