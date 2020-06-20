@@ -408,16 +408,19 @@ footer {
 	height: 50px;
 	text-align: center;
 	background-color: #282828;
-	cursor: default;
+}
+footer div {
+	width: 25%;
+	float: left;
+	display: inline-block;
+	text-align: center;
+	user-select: none;
 }
 footer i {
 	color: #fff;
 	padding: 19px;
 	font-size: 12px;
 	cursor: pointer;
-}
-footer i:nth-of-type(2) {
-	margin: 0 20px;
 }
 footer i:active {
 	color: #f44;
@@ -892,7 +895,7 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 		padding: 17px;
 	}
 	.keyboard {
-		width: 60%;
+		width: 400px;
 	}
 }
 @media (min-width: 1040px) {
@@ -986,11 +989,8 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 	footer i {
 		padding: 14px;
 	}
-	footer i:nth-of-type(2) {
-		margin: 0 100px;
-	}
 	.keyboard {
-		width: 50%;
+		width: 450px;
 	}
 }
 @media (min-width: 1380px) {
@@ -1068,6 +1068,6 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 		padding: 11px;
 	}
 	.keyboard {
-		width: 40%;
+		width: 500px;
 	}
 }
