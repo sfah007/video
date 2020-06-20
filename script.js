@@ -56,7 +56,7 @@ $(function() {
 	$('.settings u').on('click', function() {
 		location.href = 'https://www.youtube.com/feed/history';
 	});
-	$('footer i:eq(1)').on('click', function() {
+	$('footer i:eq(3)').on('click', function() {
 		$('html, body').animate({scrollTop: 0});
 	});
 	$('#q').autocomplete({
