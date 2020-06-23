@@ -20,6 +20,7 @@ a, b {
 }
 header {
 	z-index: 1;
+	position: -webkit-sticky;
 	position: sticky;
 	top: 0;
 	height: 50px;
@@ -724,6 +725,7 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 @media (max-width: 531px) {
 	figure {
 		z-index: 1;
+		position: -webkit-sticky;
 		position: sticky;
 		top: 50px;
 		padding-bottom: 56.25%;
