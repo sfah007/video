@@ -290,7 +290,7 @@ article ins {
 	border-bottom-right-radius: 5px;
 	cursor: grab;
 }
-article ins:active, h4:active {
+article ins:active, h5 b:active {
 	cursor: grabbing;
 }
 article i, .comments a i {
@@ -497,31 +497,31 @@ time {
 	user-select: none;
 }
 h4, h5 {
-	margin: 0;
 	word-break: break-word;
 }
 h4 {
+	margin: 0;
 	font-size: 14px;
-	cursor: grab;
-}
-h4 i {
-	display: block !important;
-	font-size: 150%;
 }
 h5 {
+	margin: 10px 0 0;
 	font-size: inherit;
 }
-h5 a, dt b {
-	margin: 10px 0 0;
+h5 a, h5 b, dt b {
 	padding: 5px 10px;
 	border-radius: 5px;
 	background-color: #f1f1f1;
 }
-h5 a {
+h5 a, h5 b {
 	display: inline-block;
+	margin: 0 5px;
+}
+h5 b {
+	cursor: grab;
 }
 dt b {
 	display: block;
+	margin: 10px 0 0;
 	text-align: center;
 }
 .info div {
