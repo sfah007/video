@@ -135,7 +135,7 @@ $(function() {
 					}
 					else {
 						if (e.data == 0) {
-							localStorage.removeItem(video);
+							if (localStorage.getItem(video)) localStorage.removeItem(video);
 							if (Cookies.get('infinite_playback')) random();
 						}
 					}
@@ -177,7 +177,7 @@ $(function() {
 	$(document).on('click', 'h5 b, ins', function(e) {
 		e.preventDefault();
 		var id = $(this).attr('id'),
-		title = video ? $('h4').text() : $(this).prev().text(),
+		title = $(e.target).parents('h5').length ? $('h4').text() : $(this).prev().text(),
 		li = id + 'ჲ፨ဇ' + title + 'ဇ፨ჲ';
 		if ($('i', this).hasClass('fa-plus-circle')) {
 			Cookies.set('playlist', id, {expires: 365, path: folder});
