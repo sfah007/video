@@ -354,7 +354,7 @@ $(function() {
 			}
 		});
 	});
-	$(document).on('click', 'blockquote b', function() {
+	$(document).on('click', '.replies', function() {
 		if (!$(this).parent().next().length) {
 			var button = $(this);
 			$.ajax({
