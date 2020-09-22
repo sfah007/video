@@ -44,7 +44,7 @@ header a, header b {
 	color: #fff;
 	user-select: none;
 }
-header a:hover, h1 i, header .on {
+header a:hover, h1 i, header .on, .fa-plus-circle, article .fa-play-circle, article .fa-pause-circle, blockquote .on, footer i:active {
 	color: #f44;
 }
 header ul {
@@ -76,6 +76,8 @@ nav {
 	position: fixed;
 	z-index: 2;
 	width: 100%;
+	max-height: calc(100vh - 50px);
+	overflow: auto;
 	padding: 20px;
 	color: #282828;
 	background-color: #c1c1c1;
@@ -296,9 +298,6 @@ article ins:active, h5 b:active {
 article i, .comments a i {
 	font-size: 11px;
 }
-.fa-plus-circle, article .fa-play-circle, article .fa-pause-circle {
-	color: #f44;
-}
 .fa-check-circle {
 	color: #09c;
 }
@@ -415,16 +414,12 @@ footer div {
 	float: left;
 	display: inline-block;
 	text-align: center;
-	user-select: none;
 }
 footer i {
 	color: #fff;
 	padding: 19px;
 	font-size: 12px;
 	cursor: pointer;
-}
-footer i:active {
-	color: #f44;
 }
 figure {
 	margin: 0;
@@ -523,21 +518,26 @@ dt b {
 	display: block;
 	margin: 10px 0 0;
 	text-align: center;
+	user-select: none;
 }
 .info div {
 	margin: 10px 0 0;
 	cursor: default;
 }
-.info div i {
-	margin: 0 3px 0 10px;
+.info div i, .comments blockquote i {
+	margin-right: 3px;
 }
-html[dir="rtl"] .info div i {
-	margin: 0 10px 0 3px;
+html[dir="rtl"] .info div i, html[dir="rtl"] .comments blockquote i {
+	margin-left: 3px;
 }
-.info div i:first-of-type {
+.info div span, .comments blockquote span {
+	margin: 0 5px;
+	display: inline-block;
+}
+.info div span:first-of-type, html[dir="rtl"] .info div span:last-of-type, .comments blockquote span:first-of-type, html[dir="rtl"] .comments blockquote span:last-of-type {
 	margin-left: 0;
 }
-html[dir="rtl"] .info div i:first-of-type {
+.info div span:last-of-type, html[dir="rtl"] .info div span:first-of-type, .comments blockquote span:last-of-type, html[dir="rtl"] .comments blockquote span:first-of-type {
 	margin-right: 0;
 }
 .info p {
@@ -594,10 +594,10 @@ progress[value]::-webkit-progress-value {
 .comments div {
 	padding: 10px;
 }
-.comments div dt {
+.comments dt {
 	padding: 10px 0 0 50px;
 }
-html[dir="rtl"] .comments div dt {
+html[dir="rtl"] .comments dt {
 	padding: 10px 50px 0 0;
 }
 .comments dt div {
@@ -624,31 +624,12 @@ html[dir="rtl"] .comments img {
 .comments blockquote {
 	margin: 10px 0 0;
 	color: #c1c1c1;
+	transition: .2s;
 	cursor: default;
 }
-.comments blockquote i {
-	margin: 0 3px 0 10px;
-}
-html[dir="rtl"] .comments blockquote i {
-	margin: 0 10px 0 3px;
-}
-.comments blockquote i:first-of-type {
-	margin-left: 0;
-}
-html[dir="rtl"] .comments blockquote i:first-of-type {
-	margin-right: 0;
-}
-.comments blockquote b {
-	margin: 0 10px;
-	font-weight: 400;
-	transition: 0s;
+.replies {
+	cursor: pointer;
 	user-select: none;
-}
-.comments .on {
-	color: #f44;
-}
-.comments blockquote:hover {
-	color: #757575;
 }
 .comments blockquote:after {
 	content: '';
@@ -657,6 +638,9 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 	width: 100%;
 	height: 15px;
 	border-bottom: 1px solid #f1f1f1;
+}
+.comments div:hover > blockquote {
+	color: #757575;
 }
 .rotate {
 	pointer-events: none;
@@ -970,19 +954,19 @@ html[dir="rtl"] .comments blockquote i:first-of-type {
 		padding-left: calc(25% + 5px);
 		padding-right: calc(25% + 5px);
 	}
+	.info div span, .comments blockquote span {
+		margin: 0 10px;
+	}
 	.info div i, .comments blockquote i {
-		margin: 0 4px 0 20px;
+		margin-right: 4px;
 	}
 	html[dir="rtl"] .info div i, html[dir="rtl"] .comments blockquote i {
-		margin: 0 20px 0 4px;
+		margin-left: 4px;
 	}
 	.info, .info p a {
 		margin: 0 10px;
 	}
-	.comments blockquote b {
-		margin-left: 20px;
-	}
-	.comments div dt {
+	.comments dt {
 		padding-left: 100px;
 	}
 	.clamp {
