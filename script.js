@@ -305,7 +305,7 @@ $(function() {
 		$('body').hasClass('freeze') ? $('.keyboard').hide().parent().removeClass('freeze') : $('.keyboard').show().parent().addClass('freeze');
 	}
 	$('.info div:eq(1) a').on('click', function() {
-		open('https://invidious.fdn.fr/latest_version?id=' + video + '&itag=' + $(this).attr('id') + ($(this).parent().prev().find('a').attr('href') == '?c=10' ? '&local=true' : ''));
+		open('https://' + $(this).parent().parent().attr('data-source') + '/latest_version?id=' + video + '&itag=' + $(this).attr('data-itag'));
 	});
 	$(document).on('click', 'legend', function() {
 		$(this).prev().toggleClass('clamp');
