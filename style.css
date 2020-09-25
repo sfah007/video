@@ -406,14 +406,21 @@ aside a:hover, aside b:hover {
 }
 footer {
 	height: 50px;
-	text-align: center;
 	background-color: #282828;
 }
 footer div {
-	width: 25%;
+	width: 33.333%;
 	float: left;
 	display: inline-block;
+}
+footer div:nth-child(1) {
+	text-align: right;
+}
+footer div:nth-child(2) {
 	text-align: center;
+}
+footer div:nth-child(3) {
+	text-align: left;
 }
 footer i {
 	color: #fff;
@@ -859,7 +866,7 @@ html[dir="rtl"] .comments img {
 		margin: 0 20%;
 	}
 	article {
-		width: 33.3333%;
+		width: 33.333%;
 	}
 	article img {
 		padding-top: 24px;
