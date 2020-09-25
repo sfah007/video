@@ -64,7 +64,7 @@ $(function() {
 	$('.settings u').on('click', function() {
 		location.href = 'https://www.youtube.com/feed/history';
 	});
-	$('footer i:eq(3)').on('click', function() {
+	$('.fa-chevron-up').on('click', function() {
 		$('html, body').animate({scrollTop: 0});
 	});
 	$('#q').autocomplete({
@@ -300,7 +300,7 @@ $(function() {
 	function defrost() {
 		$('.modal, .keyboard').removeAttr('src').hide().parent().removeClass('freeze');
 	}
-	$('footer i:eq(0), .keyboard').on('click', keyboard);
+	$('.fa-keyboard, .keyboard').on('click', keyboard);
 	function keyboard() {
 		$('body').hasClass('freeze') ? $('.keyboard').hide().parent().removeClass('freeze') : $('.keyboard').show().parent().addClass('freeze');
 	}
