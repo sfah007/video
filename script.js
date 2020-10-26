@@ -1,4 +1,4 @@
-var callback, player, video, clear, YTdeferred = $.Deferred(), folder = location.pathname.split('/').slice(0, -1).join('/'), mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+var callback, player, video, clear, YTdeferred = $.Deferred(), folder = location.pathname.split('/').slice(0, -1).join('/'), mobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
 window.onYouTubeIframeAPIReady = function() {
 	YTdeferred.resolve(window.YT);
 };
@@ -18,23 +18,12 @@ $(function() {
 		if (video) $('h5 b').each(checkplus);
 		if ($('ins').length) $('ins').each(checkplus);
 	}
-	if ($('ins').length) Cookies.set('random', $('ins:eq(' + ~~(Math.random() * ($('ins').length - 1)) + ')').attr('id'), {expires: 365, path: folder});
+	if ($('ins').length) Cookies.set('random', $('ins').eq(~~(Math.random() * ($('ins').length - 1))).attr('id'), {expires: 365, path: folder});
 	if ($('.playlist').length) {
 		clear = $('aside').html();
 		if (Cookies.get('shuffle')) $('.shuffle').addClass('on');
 	}
-	if (mobile) {
-		var script = document.createElement('script');
-		script.onload = function() {
-			var shakeEvent = new Shake({threshold: 30});
-			shakeEvent.start();
-			window.addEventListener('shake', random, false);
-		}
-		script.src = 'https://cdn.jsdelivr.net/npm/shake.js@1.2.2/shake.min.js';
-		document.head.appendChild(script);
-		$('figcaption').remove();
-		$('.keyboard b:eq(0)').text('Shake');
-	}
+	if (mobile) $('figcaption').remove();
 	$(window).on('beforeunload', function() {
 		$('header h1 i').addClass('fa-spin');
 		setTimeout(function() {$('header h1 i').removeClass('fa-spin')}, 10000);
@@ -113,7 +102,7 @@ $(function() {
 			events: {
 				'onReady': function() {
 					if (clear) listize();
-					var id = video ? video : $('ins:eq(0)').attr('id'),
+					var id = video ? video : $('ins').first().attr('id'),
 					time = video && localStorage.getItem(video) ? localStorage.getItem(video) : 0;
 					if (Cookies.get('save_history')) {
 						player.loadVideoById({videoId:id,startSeconds:time});
@@ -210,7 +199,7 @@ $(function() {
 			$('.playlist').prepend('<article><b><small><i class="fas fa-arrows-alt fa-2x"></i></small><span>' + val[1] + '</span><ins id="' + val[0] + '"><i class="fas fa-check-circle fa-2x"></i></ins><img src="https://i.ytimg.com/vi/' + val[0] + '/mqdefault.jpg"/></b></article>');
 		});
 		$('#' + player.getVideoData().video_id).parent().find('.fa-arrows-alt').addClass('fa-' + (player.getPlayerState() != 1 ? 'play' : 'pause') + '-circle');
-		Cookies.set('random', $('ins:eq(' + ~~(Math.random() * ($('ins').length - 1)) + ')').attr('id'), {expires: 365, path: folder});
+		Cookies.set('random', $('ins').eq(~~(Math.random() * ($('ins').length - 1))).attr('id'), {expires: 365, path: folder});
 	}
 	function iconize(pp) {
 		$('.fa-arrows-alt').removeClass('fa-play-circle fa-pause-circle');
@@ -226,7 +215,7 @@ $(function() {
 		else ins = ins.prev().find('ins');
 		if (ins.length) player.loadVideoById(ins.attr('id'));
 		else if (bool) {
-			if ($('.loop').hasClass('on')) player.loadVideoById($('ins:eq(0)').attr('id'));
+			if ($('.loop').hasClass('on')) player.loadVideoById($('ins').first().attr('id'));
 			else if (Cookies.get('infinite_playback')) random();
 			else iconize('play');
 		}
@@ -291,20 +280,19 @@ $(function() {
 		var img = $(this);
 		img.addClass('rotate');
 		$('.modal').attr('src', img.attr('src').replace('s40-c', 's0')).on('load', function() {
-			$(this).show();
+			$(this).show().parent().addClass('freeze');
 			img.removeClass('rotate');
-			$('body').addClass('freeze');
 		});
 	});
-	$('.modal').on('click', defrost);
+	$('.fa-keyboard').on('click', function() {
+		$('kbd').show().parent().addClass('freeze');
+	});
+	$('.modal, kbd').on('click', defrost);
 	function defrost() {
-		$('.modal, .keyboard').removeAttr('src').hide().parent().removeClass('freeze');
+		$('.modal').removeAttr('src');
+		$('.modal, kbd').hide().parent().removeClass('freeze');
 	}
-	$('.fa-keyboard, .keyboard').on('click', keyboard);
-	function keyboard() {
-		$('body').hasClass('freeze') ? $('.keyboard').hide().parent().removeClass('freeze') : $('.keyboard').show().parent().addClass('freeze');
-	}
-	$('.info div:eq(1) a').on('click', function() {
+	$('.info div:nth-of-type(2) a').on('click', function() {
 		open('https://' + $(this).parent().parent().attr('data-source') + '/latest_version?id=' + video + '&itag=' + $(this).attr('data-itag'));
 	});
 	$(document).on('click', 'legend', function() {
