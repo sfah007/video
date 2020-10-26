@@ -322,16 +322,15 @@ h2 {
 	text-shadow: 0 0 5px #fff;
 }
 h3 {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: inherit;
-	margin: 0 10%;
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
 	color: #fff;
 	text-shadow: 0 0 10px #282828;
 }
-h3 span {
-	display: contents;
+h3 div {
+	display: block;
 	color: #757575;
 	text-shadow: none;
 }
@@ -673,47 +672,62 @@ html[dir="rtl"] .comments img {
 .freeze *, .freeze *:before {
 	transition: 0s !important;
 }
-.modal, .keyboard {
+.modal, kbd {
 	display: none;
 	visibility: visible;
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	cursor: zoom-out;
 	pointer-events: auto !important;
 }
 .modal {
 	max-width: 95%;
 	max-height: 95%;
+	cursor: zoom-out;
 }
-.keyboard {
-	list-style-type: none;
-	margin: 0;
-	padding: 20px;
+kbd {
 	width: 90%;
 	max-height: 90%;
-	overflow: auto;
+	font-family: inherit;
 	font-size: 14px;
 	line-height: 1;
+}
+kbd .fa-times-circle {
+	position: absolute;
+	top: -16px;
+	right: -16px;
+	border-radius: 50%;
+	color: #c1c1c1;
+	background-color: #282828;
+	cursor: pointer;
+}
+kbd .fa-times-circle:active {
+	background-color: #757575;
+}
+kbd ul {
+	margin: 0;
+	padding: 20px;
+	list-style-type: none;
+	max-height: 90vh;
+	overflow: auto;
+	border-radius: 5px;
 	color: #282828;
 	background-color: #c1c1c1;
+}
+kbd li {
+	padding: 10px 0;
 	border-radius: 5px;
 }
-.keyboard b {
+kbd li:nth-child(even) {
+	background-color: #f1f1f1;
+}
+kbd b {
 	display: inline-block;
 	width: 25%;
 	text-align: center;
 	text-transform: uppercase;
 	font-family: Cinzel;
-	cursor: zoom-out;
-}
-.keyboard li {
-	padding: 10px 0;
-	border-radius: 5px;
-}
-.keyboard li:nth-child(even) {
-	background-color: #f1f1f1;
 }
 @media (max-width: 531px) {
 	figure {
@@ -808,7 +822,7 @@ html[dir="rtl"] .comments img {
 	h1, h2, h3, h4, aside {
 		font-size: 18px;
 	}
-	header i, ol, aside i, footer i, .categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, .keyboard {
+	header i, ol, aside i, footer i, .categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, kbd {
 		font-size: 16px;
 	}
 	article i, .comments a i {
@@ -862,9 +876,6 @@ html[dir="rtl"] .comments img {
 		padding: 13px 20px;
 		line-height: 24px;
 	}
-	h3 {
-		margin: 0 20%;
-	}
 	article {
 		width: 33.333%;
 	}
@@ -889,8 +900,11 @@ html[dir="rtl"] .comments img {
 	footer i {
 		padding: 17px;
 	}
-	.keyboard {
+	kbd {
 		width: 400px;
+	}
+	kbd b {
+		width: 35%;
 	}
 }
 @media (min-width: 1040px) {
@@ -916,7 +930,7 @@ html[dir="rtl"] .comments img {
 	header li i {
 		font-size: 15px;
 	}
-	.categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, .keyboard {
+	.categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, kbd {
 		font-size: 18px;
 	}
 	.categories a {
@@ -939,9 +953,6 @@ html[dir="rtl"] .comments img {
 	h2, h3 {
 		padding: 12px 20px;
 		line-height: 26px;
-	}
-	h3 {
-		margin: 0 30%;
 	}
 	article {
 		width: 25%;
@@ -984,8 +995,12 @@ html[dir="rtl"] .comments img {
 	footer i {
 		padding: 14px;
 	}
-	.keyboard {
+	kbd {
 		width: 450px;
+	}
+	kbd .fa-times-circle {
+		top: -18px;
+		right: -18px;
 	}
 }
 @media (min-width: 1380px) {
@@ -1010,7 +1025,7 @@ html[dir="rtl"] .comments img {
 	header li i {
 		font-size: 16px;
 	}
-	.categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, .keyboard {
+	.categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, kbd {
 		font-size: 20px;
 	}
 	.categories a {
@@ -1062,7 +1077,11 @@ html[dir="rtl"] .comments img {
 	footer i {
 		padding: 11px;
 	}
-	.keyboard {
+	kbd {
 		width: 500px;
+	}
+	kbd .fa-times-circle {
+		top: -20px;
+		right: -20px;
 	}
 }
