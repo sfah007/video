@@ -309,7 +309,7 @@ article .fa-check-circle, h5 .fa-check-circle {
 }
 .adsbygoogle {
 	display: block;
-	padding: 20px 20px 0;
+	margin: 20px 20px 0;
 	text-align: center;
 }
 h2, h3 {
