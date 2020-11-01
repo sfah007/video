@@ -313,6 +313,11 @@ $(document).ready(function() {
 			$('[type="hidden"]').remove();
 			if ($('.menu > a').hasClass('on')) $('[for="q"]').before('<input type="hidden" name="c" value="'+u.replace(/&(.*)|(.*)?c=/g, '')+'"/>');
 			if (/\?u=/.test(u)) $('[for="q"]').before('<input type="hidden" name="u" value="'+u.replace(/&(.*)|(.*)?u=/g, '')+'"/>');
+			ga('set', 'page', u);
+			ga('send', 'pageview');
+			$('.adsbygoogle').each(function() {
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			});
 		});
 	}
 	function injection() {
