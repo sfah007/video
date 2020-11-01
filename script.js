@@ -37,7 +37,7 @@ $(document).ready(function() {
 		$('html, body').animate({scrollTop: 0});
 	});
 	$('.fa-keyboard').on('click', function() {
-		$('kbd ul').show().parent().show().parent().addClass('freeze');
+		$('kbd ul').show().parent().show().parent().addClass('freeze').find('.adsbygoogle').hide();
 	});
 	$('kbd').on('click', defrost);
 	$('#q').autocomplete({
@@ -161,7 +161,7 @@ $(document).ready(function() {
 		let i = $(this);
 		i.addClass('rotate');
 		$('kbd img').attr('src', i.attr('src').replace('s40-c', 's0')).on('load', function() {
-			$(this).show().parent().show().parent().addClass('freeze');
+			$(this).show().parent().show().parent().addClass('freeze').find('.adsbygoogle').hide();
 			i.removeClass('rotate');
 		});
 	});
@@ -233,7 +233,7 @@ $(document).ready(function() {
 		if ($(this).height() > 100) $(this).addClass('clamp').after('<legend><span><i class="fas fa-chevron-circle-down"></i></span></legend>');
 	}
 	function defrost() {
-		$('kbd img, kbd ul').hide().parent().hide().parent().removeClass('freeze');
+		$('kbd img, kbd ul').hide().parent().hide().parent().removeClass('freeze').find('.adsbygoogle').show();
 	}
 	function random() {
 		ajaxify($('.fa-random').parent().attr('href'));
@@ -313,9 +313,8 @@ $(document).ready(function() {
 			$('[type="hidden"]').remove();
 			if ($('.menu > a').hasClass('on')) $('[for="q"]').before('<input type="hidden" name="c" value="'+u.replace(/&(.*)|(.*)?c=/g, '')+'"/>');
 			if (/\?u=/.test(u)) $('[for="q"]').before('<input type="hidden" name="u" value="'+u.replace(/&(.*)|(.*)?u=/g, '')+'"/>');
-			ga('set', 'page', u);
+			ga('set', 'page', u.replace(/(.*)\//, '/'));
 			ga('send', 'pageview');
-			(adsbygoogle=window.adsbygoogle||[]).push({});
 		});
 	}
 	function injection() {
@@ -400,5 +399,8 @@ $(document).ready(function() {
 			Cookies.set('random', $('article').eq(~~(Math.random() * ($('article').length - 1))).children('b').attr('id'), {expires: 365, path: folder});
 			if (Cookies.get('playlist')) $('article b').each(checkplus);
 		}
+		$('.adsbygoogle').each(function() {
+			(adsbygoogle = window.adsbygoogle || []).push({});
+		});
 	}
 });
