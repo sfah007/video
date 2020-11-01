@@ -1,18 +1,12 @@
-::selection {
-	color: #fff;
-	background-color: #282828;
-}
-::placeholder {
-	opacity: .5;
-}
 *, *:before, *:after {
 	box-sizing: border-box;
 }
 body {
 	margin: 0;
+	overflow-x: hidden;
 	font-family: Roboto;
 }
-a, b {
+a {
 	outline: 0;
 	text-decoration: none;
 	transition: .2s;
@@ -39,17 +33,16 @@ h1 {
 header i {
 	font-size: 14px;
 }
-header a, header b {
+header a {
 	display: inline-block;
 	color: #fff;
 	user-select: none;
 }
-header a:hover, h1 i, header .on, .fa-plus-circle, article .fa-play-circle, article .fa-pause-circle, blockquote .on, footer i:active {
+h1 a:active, h1 i, header li:nth-child(n+4) a:active, header .on, .fa-plus-circle, article .fa-play-circle, article .fa-pause-circle, .replies.on, footer i:active {
 	color: #f44;
 }
 header ul {
 	float: right;
-	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
@@ -58,7 +51,7 @@ header li {
 	display: inline-block;
 	font-weight: 700;
 }
-header li a, header b {
+header li a {
 	padding: 0 7px;
 }
 header li:last-child {
@@ -72,9 +65,9 @@ html[dir="rtl"] header span {
 	margin: 0 3px 0 0;
 }
 nav {
+	z-index: 2;
 	display: none;
 	position: fixed;
-	z-index: 2;
 	width: 100%;
 	max-height: calc(100vh - 50px);
 	overflow: auto;
@@ -83,21 +76,21 @@ nav {
 	background-color: #c1c1c1;
 	box-shadow: 0px 5px 5px 0px rgba(40, 40, 40, .75);
 }
-.categories {
+.menu {
 	font: 700 12px/2.5 Cinzel;
 	text-transform: uppercase;
 	text-shadow: 0 0 5px #fff;
 	text-align: center;
 	cursor: default;
 }
-.categories a {
+nav a {
 	display: inline-block;
 	position: relative;
 	margin: 0 10px;
 	color: #282828;
 	user-select: none;
 }
-.categories a:before {
+nav a:before {
 	content: '';
 	position: absolute;
 	width: 100%;
@@ -108,7 +101,7 @@ nav {
 	transform: scaleX(0);
 	visibility: hidden;
 }
-.categories a:hover:before, .categories .on:before {
+nav a:hover:before, nav .on:before {
 	transform: scaleX(1);
 	visibility: visible;
 }
@@ -192,13 +185,13 @@ label {
 	cursor: pointer;
 }
 .ui-autocomplete {
+	z-index: 3;
+	position: fixed;
 	width: 1%;
 	margin: 0;
-	position: fixed;
-	z-index: 3;
-	list-style-type: none;
-	margin: 0;
 	padding: 0;
+	overflow: auto;
+	max-height: 300px;
 	box-shadow: 0px 5px 5px 0px rgba(40, 40, 40, .75);
 }
 .ui-autocomplete li {
@@ -218,7 +211,7 @@ label {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-.ui-widget-content .ui-state-hover, .ui-widget-content .ui-state-active {
+.ui-state-hover, .ui-state-active {
 	font-weight: 700;
 }
 .ui-helper-hidden-accessible {
@@ -227,28 +220,36 @@ label {
 main {
 	min-height: calc(100vh - 100px);
 }
+main.on {
+	opacity: .5;
+	pointer-events: none;
+}
 section {
 	padding: 10px;
 }
+section:after, aside:after, ol:after {
+	content: '';
+	display: table;
+	clear: both;
+}
 article {
+	position: relative;
 	float: left;
 	padding: 10px;
 	font-size: 12px;
 }
-article a, article b {
+article a {
 	display: block;
 	position: relative;
 	color: #fff;
-	font-weight: 400;
+	border-radius: 5px;
 }
 article img {
 	display: block;
 	width: 100%;
+	padding-top: 20px;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
-}
-article img {
-	padding-top: 20px;
 }
 article span {
 	position: absolute;
@@ -263,19 +264,19 @@ article span {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-article a:hover span, article b:hover span {
+article a:hover span {
 	white-space: normal;
 	text-overflow: clip;
 }
-article small, article ins {
+article small, article b {
 	position: absolute;
-	bottom: 0;
 	padding: 4px;
 	line-height: 1;
 	background-color: #000;
 }
 article small {
 	left: 0;
+	bottom: 0;
 	max-width: 75%;
 	font-size: inherit;
 	border-bottom-left-radius: 5px;
@@ -283,30 +284,33 @@ article small {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-article b small {
+.playlist small {
 	cursor: move;
 }
-article ins {
-	right: 0;
-	text-decoration: none;
+article b {
+	right: 10px;
+	bottom: 10px;
 	border-bottom-right-radius: 5px;
-	cursor: grab;
+	font-weight: 400;
+	color: #fff;
 }
-article ins:active, h5 b:active {
+article b, h5 b {
+	cursor: grab;
+	transition: .2s;
+}
+article b:active, h5 b:active {
 	cursor: grabbing;
 }
-article i, .comments a i {
+article i {
 	font-size: 11px;
 }
-.fa-check-circle {
+article .fa-check-circle, h5 .fa-check-circle {
 	color: #09c;
-}
-.adsense {
-	width: 100%;
-	margin: 0 auto;
 }
 .adsbygoogle {
 	display: block;
+	padding: 20px 20px 0;
+	text-align: center;
 }
 h2, h3 {
 	margin: 0;
@@ -335,7 +339,6 @@ h3 div {
 	text-shadow: none;
 }
 ol {
-	list-style-type: none;
 	margin: 0;
 	padding: 20px 10px 0;
 	font: 700 14px/50px Roboto;
@@ -347,29 +350,23 @@ ol li {
 	width: 25%;
 	padding: 0 10px;
 	text-align: center;
-	user-select: none;
 }
 ol a, ol b, ol em {
 	display: inherit;
 	color: #757575;
 	background-color: #f1f1f1;
 	border-radius: 5px;
+	user-select: none;
 }
-ol a:hover, ol b:not(.off):hover, ol em:active, ol .on {
+ol b, ol em, dt b {
+	cursor: pointer;
+}
+ol a:active, ol b:not(.off):active, ol em:active, ol .on {
 	color: #282828;
 	background-color: #c1c1c1;
 }
 ol .off {
 	cursor: not-allowed;
-}
-ol em {
-	font-style: normal;
-	cursor: pointer;
-}
-ol:after, section:after, aside:after {
-	content: '';
-	display: table;
-	clear: both;
 }
 aside {
 	margin: 0;
@@ -382,7 +379,7 @@ aside {
 aside i {
 	font-size: 12px;
 }
-aside a, aside b {
+aside a {
 	display: block;
 	text-align: center;
 	color: #282828;
@@ -390,7 +387,7 @@ aside a, aside b {
 	border-radius: 5px;
 	user-select: none;
 }
-aside a:hover, aside b:hover {
+aside a:active {
 	color: #fff;
 	background-color: #282828;
 }
@@ -408,8 +405,8 @@ footer {
 	background-color: #282828;
 }
 footer div {
-	width: 33.333%;
 	float: left;
+	width: 33.333%;
 	display: inline-block;
 }
 footer div:nth-child(1) {
@@ -470,8 +467,7 @@ legend:active {
 legend:active span:before, legend:active span:after {
 	border-color: #757575;
 }
-.loading {
-	padding: 20px;
+dl {
 	color: #757575;
 	text-align: center;
 }
@@ -482,15 +478,15 @@ legend:active span:before, legend:active span:after {
 	padding: 20px;
 	text-align: center;
 }
-.info, .comments {
+.info, .comments div {
 	font-size: 12px;
 	line-height: 20px;
 	color: #757575;
 }
-.info a, .comments a {
+.info a, .comments div a, blockquote time:active, .replies:active {
 	color: #757575;
 }
-.info a:hover, .comments a:hover, dt b:hover {
+.info a:active, .comments div a:active, dt b:active {
 	color: #282828;
 }
 time {
@@ -530,20 +526,20 @@ dt b {
 	margin: 10px 0 0;
 	cursor: default;
 }
-.info div i, .comments blockquote i {
+.info div i, blockquote i {
 	margin-right: 3px;
 }
-html[dir="rtl"] .info div i, html[dir="rtl"] .comments blockquote i {
+html[dir="rtl"] .info div i, html[dir="rtl"] blockquote i {
 	margin-left: 3px;
 }
-.info div span, .comments blockquote span {
+.info div span, blockquote span {
 	margin: 0 5px;
 	display: inline-block;
 }
-.info div span:first-of-type, html[dir="rtl"] .info div span:last-of-type, .comments blockquote span:first-of-type, html[dir="rtl"] .comments blockquote span:last-of-type {
+.info div span:first-of-type, html[dir="rtl"] .info div span:last-of-type, blockquote span:first-of-type, html[dir="rtl"] blockquote span:last-of-type {
 	margin-left: 0;
 }
-.info div span:last-of-type, html[dir="rtl"] .info div span:first-of-type, .comments blockquote span:last-of-type, html[dir="rtl"] .comments blockquote span:first-of-type {
+.info div span:last-of-type, html[dir="rtl"] .info div span:first-of-type, blockquote span:last-of-type, html[dir="rtl"] blockquote span:first-of-type {
 	margin-right: 0;
 }
 .info p {
@@ -566,7 +562,7 @@ html[dir="rtl"] .info div i, html[dir="rtl"] .comments blockquote i {
 html[dir="rtl"] .info p a:before {
 	padding: 0 0 0 3px;
 }
-.info p a:hover:before {
+.info p a:active:before {
 	color: #757575;
 }
 .clamp {
@@ -600,16 +596,30 @@ progress[value]::-webkit-progress-value {
 .comments div {
 	padding: 10px;
 }
-.comments dt {
-	padding: 10px 0 0 50px;
-}
-html[dir="rtl"] .comments dt {
-	padding: 10px 50px 0 0;
-}
 .comments dt div {
 	padding: 10px 0;
 }
-.comments a {
+dt {
+	padding: 10px 0 0 50px;
+}
+html[dir="rtl"] dt {
+	padding: 10px 50px 0 0;
+}
+blockquote {
+	margin: 10px 0 0;
+	color: #c1c1c1;
+	transition: .2s;
+	cursor: default;
+}
+blockquote:after {
+	content: '';
+	display: block;
+	clear: both;
+	width: 100%;
+	height: 15px;
+	border-bottom: 1px solid #f1f1f1;
+}
+.comments div a {
 	font-weight: 700;
 }
 .comments p {
@@ -629,26 +639,9 @@ html[dir="rtl"] .comments img {
 	float: right;
 	margin: 0 0 10px 10px;
 }
-.comments blockquote {
-	margin: 10px 0 0;
-	color: #c1c1c1;
-	transition: .2s;
-	cursor: default;
-}
 .replies {
 	cursor: pointer;
 	user-select: none;
-}
-.comments blockquote:after {
-	content: '';
-	display: block;
-	clear: both;
-	width: 100%;
-	height: 15px;
-	border-bottom: 1px solid #f1f1f1;
-}
-.comments div:hover > blockquote {
-	color: #757575;
 }
 .rotate {
 	pointer-events: none;
@@ -662,36 +655,17 @@ html[dir="rtl"] .comments img {
 		transform: rotate(360deg);
 	}
 }
-.freeze {
-	overflow: hidden;
-	visibility: hidden;
-	user-select: none;
-	pointer-events: none;
-	background-color: #282828;
-}
-.freeze *, .freeze *:before {
-	transition: 0s !important;
-}
-.modal, kbd {
+kbd, kbd img, kbd ul {
 	display: none;
-	visibility: visible;
+}
+kbd {
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	pointer-events: auto !important;
-}
-.modal {
-	max-width: 95%;
-	max-height: 95%;
-	cursor: zoom-out;
-}
-kbd {
-	width: 90%;
-	max-height: 90%;
 	font-family: inherit;
-	font-size: 14px;
-	line-height: 1;
+	visibility: visible;
+	pointer-events: auto !important;
 }
 kbd .fa-times-circle {
 	position: absolute;
@@ -705,10 +679,16 @@ kbd .fa-times-circle {
 kbd .fa-times-circle:active {
 	background-color: #757575;
 }
+kbd img {
+	max-width: 90vw;
+	max-height: 90vh;
+	border-radius: 5px;
+}
 kbd ul {
 	margin: 0;
 	padding: 20px;
 	list-style-type: none;
+	width: 90vw;
 	max-height: 90vh;
 	overflow: auto;
 	border-radius: 5px;
@@ -717,6 +697,8 @@ kbd ul {
 }
 kbd li {
 	padding: 10px 0;
+	font-size: 14px;
+	line-height: 1;
 	border-radius: 5px;
 }
 kbd li:nth-child(even) {
@@ -725,9 +707,26 @@ kbd li:nth-child(even) {
 kbd b {
 	display: inline-block;
 	width: 25%;
+	font-family: Cinzel;
 	text-align: center;
 	text-transform: uppercase;
-	font-family: Cinzel;
+}
+.freeze {
+	overflow: hidden;
+	visibility: hidden;
+	user-select: none;
+	pointer-events: none;
+	background-color: #282828;
+}
+.freeze *, .freeze *:before {
+	transition: 0s !important;
+}
+::selection {
+	color: #fff;
+	background-color: #282828;
+}
+::placeholder {
+	opacity: .5;
 }
 @media (max-width: 531px) {
 	figure {
@@ -755,17 +754,20 @@ kbd b {
 	header i, ol {
 		font-size: 15px;
 	}
-	.categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, aside i, footer i {
+	.menu, label, select, button, #q, .ui-autocomplete li, .info, .comments div, article, aside i, footer i {
 		font-size: 14px;
 	}
-	article i, .comments a i {
+	article i {
 		font-size: 13px;
 	}
-	header li a, header b {
+	header li a {
 		padding: 0 10px;
 	}
 	header li:last-child {
 		margin-right: -10px;
+	}
+	.ui-autocomplete {
+		max-height: 350px;
 	}
 	select, button, #q, .ui-autocomplete li {
 		height: 35px;
@@ -808,7 +810,7 @@ kbd b {
 	progress {
 		height: 22.5px;
 	}
-	.info, .comments {
+	.info, .comments div {
 		line-height: 22.5px;
 	}
 	.clamp {
@@ -817,25 +819,31 @@ kbd b {
 	footer i {
 		padding: 18px;
 	}
+	kbd b {
+		width: 35%;
+	}
 }
 @media (min-width: 700px) {
 	h1, h2, h3, h4, aside {
 		font-size: 18px;
 	}
-	header i, ol, aside i, footer i, .categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, kbd {
+	header i, ol, aside i, footer i, .menu, label, select, button, #q, .ui-autocomplete li, .info, .comments div, article, kbd li {
 		font-size: 16px;
 	}
-	article i, .comments a i {
+	article i {
 		font-size: 15px;
 	}
-	header li a, header b {
+	header li a {
 		padding: 0 15px;
 	}
 	header li:last-child {
 		margin-right: -15px;
 	}
-	.categories a {
+	nav a {
 		margin: 0 15px;
+	}
+	.ui-autocomplete {
+		max-height: 400px;
 	}
 	select, button, #q, .ui-autocomplete li {
 		height: 40px;
@@ -894,17 +902,14 @@ kbd b {
 	progress {
 		height: 25px;
 	}
-	.info, .comments {
+	.info, .comments div {
 		line-height: 25px;
 	}
 	footer i {
 		padding: 17px;
 	}
-	kbd {
+	kbd ul {
 		width: 400px;
-	}
-	kbd b {
-		width: 35%;
 	}
 }
 @media (min-width: 1040px) {
@@ -924,17 +929,20 @@ kbd b {
 	h1 {
 		font-size: 19px;
 	}
-	h1 i, header li, ol, article i, .comments a i {
+	h1 i, header li, ol, article i {
 		font-size: 17px;
 	}
 	header li i {
 		font-size: 15px;
 	}
-	.categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, kbd {
+	.menu, label, select, button, #q, .ui-autocomplete li, .info, .comments div, article, kbd li {
 		font-size: 18px;
 	}
-	.categories a {
+	nav a {
 		margin: 0 20px;
+	}
+	.ui-autocomplete {
+		max-height: 450px;
 	}
 	select, button, #q, .ui-autocomplete li {
 		height: 45px;
@@ -970,23 +978,25 @@ kbd b {
 		height: 27.5px;
 	}
 	.info, .comments {
-		line-height: 27.5px;
 		padding-left: calc(25% + 5px);
 		padding-right: calc(25% + 5px);
 	}
-	.info div span, .comments blockquote span {
+	.info, .comments div {
+		line-height: 27.5px;
+	}
+	.info div span, blockquote span {
 		margin: 0 10px;
 	}
-	.info div i, .comments blockquote i {
+	.info div i, blockquote i {
 		margin-right: 4px;
 	}
-	html[dir="rtl"] .info div i, html[dir="rtl"] .comments blockquote i {
+	html[dir="rtl"] .info div i, html[dir="rtl"] blockquote i {
 		margin-left: 4px;
 	}
 	.info, .info p a {
 		margin: 0 10px;
 	}
-	.comments dt {
+	dt {
 		padding-left: 100px;
 	}
 	.clamp {
@@ -995,12 +1005,8 @@ kbd b {
 	footer i {
 		padding: 14px;
 	}
-	kbd {
+	kbd ul {
 		width: 450px;
-	}
-	kbd .fa-times-circle {
-		top: -18px;
-		right: -18px;
 	}
 }
 @media (min-width: 1380px) {
@@ -1016,7 +1022,7 @@ kbd b {
 	h1 {
 		font-size: 20px;
 	}
-	article i, .comments a i {
+	article i {
 		font-size: 19px;
 	}
 	h1 i, header li, ol {
@@ -1025,11 +1031,14 @@ kbd b {
 	header li i {
 		font-size: 16px;
 	}
-	.categories, label, select, button, #q, .ui-autocomplete li, .info, .comments, article, kbd {
+	.menu, label, select, button, #q, .ui-autocomplete li, .info, .comments div, article, kbd li {
 		font-size: 20px;
 	}
-	.categories a {
+	nav a {
 		margin: 0 25px;
+	}
+	.ui-autocomplete {
+		max-height: 500px;
 	}
 	select, button, #q, .ui-autocomplete li {
 		height: 50px;
@@ -1071,17 +1080,13 @@ kbd b {
 	progress {
 		height: 30px;
 	}
-	.info, .comments {
+	.info, .comments div {
 		line-height: 30px;
 	}
 	footer i {
 		padding: 11px;
 	}
-	kbd {
+	kbd ul {
 		width: 500px;
-	}
-	kbd .fa-times-circle {
-		top: -20px;
-		right: -20px;
 	}
 }
