@@ -399,8 +399,5 @@ $(document).ready(function() {
 			Cookies.set('random', $('article').eq(~~(Math.random() * ($('article').length - 1))).children('b').attr('id'), {expires: 365, path: folder});
 			if (Cookies.get('playlist')) $('article b').each(checkplus);
 		}
-		$('.adsbygoogle').each(function() {
-			(adsbygoogle = window.adsbygoogle || []).push({});
-		});
 	}
 });
