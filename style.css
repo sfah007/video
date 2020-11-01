@@ -307,15 +307,15 @@ article i {
 article .fa-check-circle, h5 .fa-check-circle {
 	color: #09c;
 }
-.adsbygoogle {
-	display: block;
+.ad {
 	text-align: center;
+	margin: 0 20px 20px;
 }
-.adsbygoogle.up {
+.ad.up {
 	margin: 20px 20px 0;
 }
-.adsbygoogle.down {
-	margin: 0 20px 20px;
+.ad.adsbygoogle {
+	display: block;
 }
 h2, h3 {
 	margin: 0;
