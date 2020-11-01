@@ -309,8 +309,13 @@ article .fa-check-circle, h5 .fa-check-circle {
 }
 .adsbygoogle {
 	display: block;
-	margin: 20px 20px 0;
 	text-align: center;
+}
+.adsbygoogle.up {
+	margin: 20px 20px 0;
+}
+.adsbygoogle.down {
+	margin: 0 20px 20px;
 }
 h2, h3 {
 	margin: 0;
