@@ -307,11 +307,6 @@ article i {
 article .fa-check-circle, h5 .fa-check-circle {
 	color: #09c;
 }
-.adsbygoogle:not(.adsbygoogle-noablate) {
-	display: block;
-	margin: 20px 20px 0;
-	text-align: center;
-}
 h2, h3 {
 	margin: 0;
 	padding: 15px 20px;
