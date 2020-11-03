@@ -708,12 +708,14 @@ kbd b {
 .hide *, .hide *:before {
 	transition-duration: 0s !important;
 }
-.statcounter {
+.counter {
 	display: block;
 	width: 0;
 }
-.adsbygoogle:not(.adsbygoogle-noablate) {
+.banner {
 	display: block;
+	width: 100%;
+	height: 280px;
 	text-align: center;
 }
 ::selection {
