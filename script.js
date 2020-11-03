@@ -400,12 +400,12 @@ $(document).ready(function() {
 			Cookies.set('random', $('article').eq(~~(Math.random() * ($('article').length - 1))).children('b').attr('id'), {expires: 365, path: folder});
 			if (Cookies.get('playlist')) $('article b').each(checkplus);
 		}
-		$('.adsbygoogle').not('.adsbygoogle-noablate').each(function() {
+		$('.banner').each(function() {
 			(adsbygoogle = window.adsbygoogle || []).push({});
 		});
 		setTimeout(function() {
-			$('main').css('min-height', 'calc(100vh - 100px)');
-		}, 3000);
+			$('.banner[style*="height: 0px"]').hide();
+		}, 5000);
 		ga('set', 'page', $('#content').attr('data-url'));
 		ga('send', 'pageview');
 	}
