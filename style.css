@@ -6,6 +6,10 @@ body {
 	overflow-x: hidden;
 	font-family: Roboto;
 }
+body.off {
+	overflow-y: hidden;
+	background-color: #282828;
+}
 a {
 	outline: 0;
 	text-decoration: none;
@@ -96,10 +100,10 @@ nav a:before {
 	width: 100%;
 	height: 2px;
 	bottom: 2px;
-	background-color: #282828;
 	transition: .2s;
 	transform: scaleX(0);
 	visibility: hidden;
+	background-color: #282828;
 }
 nav a:hover:before, nav .on:before {
 	transform: scaleX(1);
@@ -214,7 +218,7 @@ label {
 .ui-state-hover, .ui-state-active {
 	font-weight: 700;
 }
-.ui-helper-hidden-accessible {
+.ui-helper-hidden-accessible, .comments, .related, .channel, kbd, kbd img, kbd ul {
 	display: none;
 }
 main {
@@ -329,7 +333,6 @@ h3 {
 	text-shadow: 0 0 10px #282828;
 }
 h3 div {
-	display: block;
 	color: #757575;
 	text-shadow: none;
 }
@@ -465,9 +468,6 @@ legend:active span:before, legend:active span:after {
 dl {
 	color: #757575;
 	text-align: center;
-}
-.comments, .related, .channel {
-	display: none;
 }
 .info {
 	padding: 20px;
@@ -650,17 +650,12 @@ html[dir="rtl"] .comments img {
 		transform: rotate(360deg);
 	}
 }
-kbd, kbd img, kbd ul {
-	display: none;
-}
 kbd {
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-family: inherit;
-	visibility: visible;
-	pointer-events: auto !important;
 }
 kbd .fa-times-circle {
 	position: absolute;
@@ -689,6 +684,7 @@ kbd ul {
 	border-radius: 5px;
 	color: #282828;
 	background-color: #c1c1c1;
+	user-select: none;
 }
 kbd li {
 	padding: 10px 0;
@@ -706,15 +702,19 @@ kbd b {
 	text-align: center;
 	text-transform: uppercase;
 }
-.freeze {
-	overflow: hidden;
+.hide, .hide iframe {
 	visibility: hidden;
-	user-select: none;
-	pointer-events: none;
-	background-color: #282828;
 }
-.freeze *, .freeze *:before {
-	transition: 0s !important;
+.hide *, .hide *:before {
+	transition-duration: 0s !important;
+}
+.statcounter {
+	display: block;
+	width: 0;
+}
+.adsbygoogle:not(.adsbygoogle-noablate) {
+	display: block;
+	text-align: center;
 }
 ::selection {
 	color: #fff;
