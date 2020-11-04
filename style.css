@@ -218,7 +218,7 @@ label {
 .ui-state-hover, .ui-state-active {
 	font-weight: 700;
 }
-.ui-helper-hidden-accessible, .comments, .related, .channel, kbd, kbd img, kbd ul {
+.ui-helper-hidden-accessible, .comments, .related, .channel, .counter, kbd, kbd img, kbd ul {
 	display: none;
 }
 main {
@@ -656,6 +656,7 @@ kbd {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-family: inherit;
+	user-select: none;
 }
 kbd .fa-times-circle {
 	position: absolute;
@@ -684,7 +685,6 @@ kbd ul {
 	border-radius: 5px;
 	color: #282828;
 	background-color: #c1c1c1;
-	user-select: none;
 }
 kbd li {
 	padding: 10px 0;
@@ -707,10 +707,6 @@ kbd b {
 }
 .hide *, .hide *:before {
 	transition-duration: 0s !important;
-}
-.counter {
-	display: block;
-	width: 0;
 }
 .banner {
 	display: block;
