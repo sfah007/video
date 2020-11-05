@@ -507,7 +507,7 @@ h5 a, h5 b, dt b {
 }
 h5 a, h5 b {
 	display: inline-block;
-	margin: 0 5px;
+	margin: 5px;
 }
 h5 b {
 	cursor: grab;
