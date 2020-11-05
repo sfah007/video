@@ -431,6 +431,7 @@ figure {
 }
 #player {
 	height: 100%;
+	background-color: #000;
 }
 figcaption {
 	height: calc(100% - 50px);
