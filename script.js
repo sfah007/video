@@ -335,7 +335,7 @@ $(document).ready(function() {
 					events: {
 						'onReady': function() {
 							if ($('.playlist').length) listize();
-							player.cueVideoById({videoId: ($('h5').length ? $('h5 b').attr('id') : $('article').first().children('b').attr('id')), startSeconds: ($('h5').length && localStorage.getItem(v) ? localStorage.getItem(v) : 0)});
+							player.cueVideoById({videoId: ($('h5').length ? $('h5 b').attr('id') : $('article').first().children('b').attr('id')), startSeconds: ($('h5').length && localStorage.getItem($('h5 b').attr('id')) ? localStorage.getItem($('h5 b').attr('id')) : 0)});
 							if (Cookies.get('auto_start')) player.playVideo();
 						},
 						'onStateChange': function(e) {
