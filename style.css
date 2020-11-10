@@ -56,10 +56,10 @@ header li {
 	font-weight: 700;
 }
 header li a {
-	padding: 0 7px;
+	padding: 0 5px;
 }
 header li:last-child {
-	margin-right: -7px;
+	margin-right: -5px;
 }
 header span {
 	display: none;
@@ -122,8 +122,7 @@ select, button, #q {
 }
 input[type="checkbox"] {
 	margin: 0 2px 0 0;
-	transform: scale(1.1);
-	vertical-align: -2px;
+	vertical-align: -4px;
 }
 html[dir="rtl"] input[type="checkbox"] {
 	margin: 0 0 0 2px;
@@ -161,14 +160,14 @@ nav div:nth-child(n+2) {
 form div:nth-child(-n+3) label {
 	display: block;
 }
-form div:nth-child(n+4) {
+form div:nth-child(n+6) {
 	width: 50%;
 }
 form div:nth-child(n+4), .settings div:nth-child(-n+4) {
 	text-align: center;
 }
-form div:nth-child(6), .settings div:nth-child(5) {
-	clear: both;
+form div:nth-child(8), .settings div:nth-child(5) {
+	clear: left;
 }
 label {
 	font: 700 12px/1 Cinzel;
@@ -178,11 +177,10 @@ label {
 }
 .settings p {
 	margin: 5px 0 0;
-	padding: 0 20px;
+	padding: 0 5%;
 	font-size: 12px;
 	line-height: 1.5;
-	color: #fff;
-	text-shadow: 0 0 5px #000;
+	text-shadow: 0 0 5px #fff;
 }
 .settings u {
 	display: inline-block;
@@ -363,7 +361,7 @@ ol a:active, ol b:not(.off):active, ol em:active, ol .on {
 	color: #282828;
 	background-color: #c1c1c1;
 }
-ol .off {
+ol .off, :disabled {
 	cursor: not-allowed;
 }
 aside {
@@ -482,7 +480,7 @@ dl {
 .info a, .comments div a, blockquote time:active, .replies:active {
 	color: #757575;
 }
-.info a:active, .comments div a:active, dt b:active {
+.info a:active, .info time:active, .comments div a:active, dt b:active {
 	color: #282828;
 }
 time {
@@ -719,9 +717,6 @@ kbd b {
 	color: #fff;
 	background-color: #282828;
 }
-::placeholder {
-	opacity: .5;
-}
 @media (max-width: 531px) {
 	figure {
 		z-index: 1;
@@ -767,14 +762,10 @@ kbd b {
 		height: 35px;
 	}
 	input[type="checkbox"] {
-		margin: 0 3px 0 0;
-		transform: scale(1.2);
-	}
-	html[dir="rtl"] input[type="checkbox"] {
-		margin: 0 0 0 3px;
+		vertical-align: -3px;
 	}
 	.settings p {
-		padding: 0 40px;
+		padding: 0 10%;
 	}
 	h2, h3 {
 		padding: 14px 20px;
@@ -844,22 +835,28 @@ kbd b {
 	}
 	input[type="checkbox"] {
 		margin: 0 4px 0 0;
-		transform: scale(1.3);
-		vertical-align: -1px;
+		transform: scale(1.2);
+		vertical-align: -2px;
 	}
 	html[dir="rtl"] input[type="checkbox"] {
 		margin: 0 0 0 4px;
 	}
 	form div:nth-child(6) {
+		clear: left;
+	}
+	form div:nth-child(8) {
 		clear: none;
 	}
 	form div:nth-child(n+4) {
+		width: 50%;
+	}
+	form div:nth-child(n+6) {
 		width: 25%;
 	}
 	form div:nth-child(2), form div:nth-child(3), .settings div:nth-child(n+5) {
 		width: 49.75%;
 	}
-	form div:nth-child(3), .settings div:last-of-type {
+	form div:nth-child(3), .settings div:last-child {
 		float: right;
 	}
 	.settings div:nth-child(-n+4) {
@@ -950,7 +947,7 @@ kbd b {
 		margin: 0 0 0 6px;
 	}
 	.settings p {
-		padding: 0 60px;
+		padding: 0 15%;
 	}
 	h2, h3 {
 		padding: 12px 20px;
@@ -1040,7 +1037,7 @@ kbd b {
 	input[type="checkbox"] {
 		margin: 0 8px 0 0;
 		transform: scale(1.6);
-		vertical-align: 1px;
+		vertical-align: .5px;
 	}
 	html[dir="rtl"] input[type="checkbox"] {
 		margin: 0 0 0 8px;
