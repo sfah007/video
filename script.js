@@ -312,6 +312,10 @@ $(document).ready(function() {
 	}
 	function ajaxify(u, s) {
 		times();
+		if (/iPhone|iPad/i.test(navigator.userAgent)) {
+			if (!s) location = u;
+		}
+		else {
 		$('main').addClass('on').load(u+' #content', function() {
 			let p = $('#content').attr('data-page'), t = $('#content').attr('data-title');
 			if (!s) {
@@ -335,6 +339,7 @@ $(document).ready(function() {
 				$('.counter').attr('src', 'https://c.statcounter.com/t.php?sc_project=5408945&security=f75ba4c3&invisible=1&camefrom='+encodeURIComponent($('.counter').attr('alt'))+'&u='+encodeURIComponent(location.href)+'&t='+encodeURIComponent(t)+'&resolution='+screen.width+'&h='+screen.height);
 			}
 		});
+		}
 	}
 	function injection() {
 		if ($('h5').length || $('.playlist').length) {
