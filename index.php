@@ -531,7 +531,7 @@ else {
 		<footer>
 			<div><i class="fas fa-keyboard"></i></div>
 			<div><i class="fas fa-chevron-up"></i></div>
-			<div><a href="mailto:memres@protonmail.com"><i class="fas fa-envelope"></i></a></div>
+			<div><a href="https://github.com/memres/video" rel="external"><i class="fab fa-github"></i></a></div>
 		</footer>
 		<kbd>
 			<i class="fas fa-times-circle fa-2x"></i>
