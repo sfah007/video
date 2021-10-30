@@ -1,5 +1,5 @@
 <?php
-if (isset($_COOKIE['mv']) || $_POST['pw'] == 'mesvideo') { if (!isset($_COOKIE['mv'])) setcookie('mv', true);
+if (isset($_COOKIE['heroku']) || $_POST['password'] == 'mesvideo') { if (!isset($_COOKIE['heroku'])) setcookie('heroku', true);
 include('functions.php');
 $title = 'VideoTube';
 $description = 'Watch ad-free YouTube videos.';
@@ -566,4 +566,4 @@ else {
 <?php } ?>
 	</body>
 </html>
-<?php } else echo '<form method="post"><input type="password" name="pw"/></form>'; ?>
+<?php } else echo '<form method="post"><input type="password" name="password"/></form>'; ?>
